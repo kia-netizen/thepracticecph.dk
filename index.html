@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Practice CPH — Kundalini, Sound Healing & Breathwork</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap');
+
+    :root {
+      --sand:       #EDE0C8;
+      --sand-light: #F5ECD8;
+      --cream:      #FAF4E8;
+      --navy:       #1C2B3A;
+      --navy-mid:   #2A3E52;
+      --terracotta: #B85C38;
+      --amber:      #C97A55;
+      --dune:       #D4C4A0;
+      --ink:        #2C2318;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── GRAIN ─────────────────────────────────── */
+    .grain {
+      position: absolute; inset: 0; pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 192px 192px;
+      mix-blend-mode: multiply;
+    }
+
+    /* ─── FADE ANIMATIONS ────────────────────────── */
+    .fade {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .fade:nth-child(2) { transition-delay: 0.08s; }
+    .fade:nth-child(3) { transition-delay: 0.16s; }
+    .fade:nth-child(4) { transition-delay: 0.24s; }
+    .fade:nth-child(5) { transition-delay: 0.32s; }
+    .fade:nth-child(6) { transition-delay: 0.40s; }
+
+    /* ─── WAVE DIVIDERS ─────────────────────────── */
+    .wave-wrap {
+      display: block; overflow: hidden;
+      line-height: 0; margin-top: -2px;
+    }
+    .wave-wrap svg { display: block; width: 100%; }
+
+    /* ─── NAV ────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 22px 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease;
+    }
+    nav.scrolled {
+      background: rgba(250, 244, 232, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 rgba(28, 43, 58, 0.07);
+    }
+    .nav-logo {
+      text-decoration: none; display: flex; flex-direction: column; line-height: 1;
+    }
+    .logo-the {
+      font-size: 8.5px; font-weight: 300;
+      letter-spacing: 0.45em; text-transform: uppercase;
+      color: var(--navy); opacity: 0.55;
+    }
+    .logo-practice {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 300; font-style: italic;
+      color: var(--terracotta); letter-spacing: -0.02em; line-height: 1.05;
+    }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--navy); text-decoration: none; opacity: 0.6;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--terracotta); }
+
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 30%, rgba(184,92,56,0.11) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 50% at 72% 22%, rgba(201,122,85,0.08) 0%, transparent 50%),
+        var(--sand-light);
+    }
+    .hero-inner {
+      position: relative; z-index: 1; text-align: center;
+      padding: 130px 48px 96px; max-width: 920px;
+    }
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 44px;
+    }
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(52px, 7.5vw, 96px);
+      line-height: 1.09; letter-spacing: -0.025em;
+      color: var(--navy); margin-bottom: 32px;
+    }
+    .hero-headline em { font-style: italic; color: var(--terracotta); }
+    .hero-sub {
+      font-size: 15px; font-weight: 300; line-height: 1.75;
+      color: var(--navy); opacity: 0.6;
+      max-width: 500px; margin: 0 auto 52px;
+    }
+    .ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-rim {
+      font-size: 10.5px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--navy); border: 1px solid var(--navy);
+      padding: 14px 34px; border-radius: 100px; text-decoration: none;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    }
+    .btn-rim:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
+    .btn-rim:active { transform: translateY(0); }
+    .btn-ghost {
+      font-size: 10.5px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); border: 1px solid transparent;
+      padding: 14px 34px; border-radius: 100px; text-decoration: none;
+      transition: border-color 0.25s ease, transform 0.2s ease;
+    }
+    .btn-ghost:hover { border-color: var(--terracotta); transform: translateY(-2px); }
+
+    /* ─── SHARED ATOMS ───────────────────────────── */
+    .eyebrow {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--terracotta);
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 20px;
+    }
+    .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--dune); }
+
+    h2.serif {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(34px, 4.5vw, 54px);
+      line-height: 1.1; letter-spacing: -0.02em; color: var(--navy);
+    }
+    h2.serif em { font-style: italic; color: var(--terracotta); }
+
+    /* ─── SERVICES (navy bg) ─────────────────────── */
+    .services {
+      position: relative; overflow: hidden;
+      background: var(--navy);
+      padding: 96px 56px;
+    }
+    .services-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+    .services-header { text-align: center; margin-bottom: 64px; }
+    .services-header .eyebrow {
+      justify-content: center; max-width: 280px; margin: 0 auto 16px;
+      color: var(--amber); --dune: rgba(212,196,160,0.25);
+    }
+    .services-header h2.serif { color: var(--sand); }
+    .services-header h2.serif em { color: var(--amber); }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .s-card {
+      background: transparent;
+      border: 1px solid rgba(212,196,160,0.12);
+      border-radius: 22px; padding: 36px 30px 32px;
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+    .s-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(184,92,56,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(184,92,56,0.08);
+    }
+    .s-marker {
+      display: block; width: 28px; height: 1.5px;
+      background: var(--terracotta); border-radius: 2px;
+      margin-bottom: 22px;
+    }
+    .s-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(24px, 2vw, 30px);
+      color: var(--sand); letter-spacing: -0.01em; margin-bottom: 12px;
+    }
+    .s-desc {
+      font-size: 13px; font-weight: 300;
+      line-height: 1.72; color: var(--dune); opacity: 0.7;
+    }
+
+    /* ─── EVENT (terracotta bg) ──────────────────── */
+    .event-section { background: var(--terracotta); padding: 96px 56px; }
+    .event-inner { max-width: 1100px; margin: 0 auto; }
+    .event-eyebrow-label {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(250,244,232,0.65);
+      display: flex; align-items: center; gap: 18px; margin-bottom: 40px;
+      max-width: 240px;
+    }
+    .event-eyebrow-label::after { content: ''; flex: 1; height: 1px; background: rgba(250,244,232,0.2); }
+
+    .event-card {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: 28px; overflow: hidden;
+      box-shadow:
+        0 28px 80px rgba(28,43,58,0.25),
+        0 4px 16px rgba(28,43,58,0.1);
+    }
+    .event-img {
+      background:
+        radial-gradient(ellipse 60% 60% at 40% 55%, rgba(28,43,58,0.35) 0%, transparent 65%),
+        linear-gradient(148deg, var(--sand-light) 0%, var(--dune) 100%);
+      min-height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .event-img-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 17px; color: var(--navy); opacity: 0.22;
+    }
+    .event-body {
+      background: var(--navy); padding: 60px 56px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .event-eyebrow {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 22px;
+    }
+    .event-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(34px, 3.5vw, 44px);
+      color: var(--sand); line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+    .event-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tag {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--dune); opacity: 0.7;
+      border: 1px solid rgba(212,196,160,0.22);
+      padding: 6px 14px; border-radius: 100px;
+    }
+    .event-desc {
+      font-size: 14px; font-weight: 300; line-height: 1.85;
+      color: var(--dune); opacity: 0.68; margin-bottom: 38px;
+    }
+    .btn-terra {
+      display: inline-block;
+      font-size: 10.5px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cream); background: var(--terracotta);
+      padding: 14px 32px; border-radius: 100px;
+      text-decoration: none; border: none; cursor: pointer; align-self: flex-start;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .btn-terra:hover { background: var(--amber); transform: translateY(-2px); }
+    .btn-terra:active { transform: translateY(0); }
+
+    /* ─── ABOUT (sand bg) ────────────────────────── */
+    .about-section { background: var(--sand); padding: 96px 56px; }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-img {
+      aspect-ratio: 4/5; border-radius: 28px; overflow: hidden;
+      background:
+        radial-gradient(ellipse 55% 55% at 28% 68%, rgba(184,92,56,0.22) 0%, transparent 60%),
+        linear-gradient(162deg, var(--sand-light) 0%, var(--dune) 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-img-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 17px; color: var(--navy); opacity: 0.22;
+    }
+    .about-content { display: flex; flex-direction: column; gap: 22px; }
+    .about-body {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.88; color: var(--navy); opacity: 0.72;
+    }
+    .link-arrow {
+      font-size: 10.5px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: gap 0.25s cubic-bezier(0.22,1,0.36,1);
+    }
+    .link-arrow:hover { gap: 16px; }
+
+    /* ─── RETREATS (navy bg) ─────────────────────── */
+    .retreats-section {
+      position: relative; overflow: hidden;
+      background: var(--navy); padding: 96px 56px;
+    }
+    .retreats-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+    .retreats-header { margin-bottom: 56px; }
+    .retreats-header .eyebrow { color: var(--amber); --dune: rgba(212,196,160,0.18); }
+    .retreats-header h2.serif { color: var(--sand); }
+    .retreats-header h2.serif em { color: var(--amber); }
+    .retreats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .r-card {
+      border: 1px solid rgba(212,196,160,0.1); border-radius: 24px;
+      padding: 52px 48px; display: flex; flex-direction: column; gap: 18px;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .r-card:hover { border-color: rgba(184,92,56,0.28); background: rgba(255,255,255,0.025); }
+    .r-label {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta);
+    }
+    .r-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 36px;
+      color: var(--sand); line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .r-desc {
+      font-size: 14px; font-weight: 300; line-height: 1.82;
+      color: var(--dune); opacity: 0.65; flex: 1;
+    }
+    .btn-rim-light {
+      display: inline-block;
+      font-size: 10.5px; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sand); border: 1px solid rgba(212,196,160,0.25);
+      padding: 12px 28px; border-radius: 100px; text-decoration: none; align-self: flex-start;
+      transition: border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    }
+    .btn-rim-light:hover {
+      border-color: rgba(237,224,200,0.6);
+      background: rgba(237,224,200,0.06);
+      transform: translateY(-2px);
+    }
+
+    /* ─── MEMBERSHIP (terracotta bg) ─────────────── */
+    .membership-section {
+      position: relative; overflow: hidden;
+      background: var(--terracotta); padding: 96px 56px;
+    }
+    .membership-radial {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 65% 55% at 82% 15%, rgba(255,215,170,0.16) 0%, transparent 58%);
+    }
+    .membership-inner { max-width: 640px; margin: 0 auto; text-align: center; position: relative; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(250,244,232,0.65);
+      border: 1px solid rgba(250,244,232,0.18);
+      padding: 7px 20px; border-radius: 100px; margin-bottom: 38px;
+    }
+    .membership-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(40px, 5.5vw, 66px);
+      color: var(--cream); line-height: 1.08; letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+    .membership-title em { font-style: italic; }
+    .membership-desc {
+      font-size: 15px; font-weight: 300; line-height: 1.78;
+      color: rgba(250,244,232,0.72); margin-bottom: 48px;
+    }
+    .pill-form {
+      display: flex; max-width: 440px; margin: 0 auto;
+      border: 1px solid rgba(250,244,232,0.22);
+      border-radius: 100px; overflow: hidden;
+    }
+    .pill-input {
+      flex: 1; min-width: 0; padding: 15px 24px;
+      font-family: 'Jost', sans-serif; font-weight: 300; font-size: 13px;
+      background: rgba(250,244,232,0.1); border: none; outline: none; color: var(--cream);
+    }
+    .pill-input::placeholder { color: rgba(250,244,232,0.38); }
+    .pill-btn {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--terracotta); background: var(--cream);
+      border: none; padding: 15px 26px; cursor: pointer; white-space: nowrap;
+      transition: background 0.25s ease;
+    }
+    .pill-btn:hover { background: var(--sand); }
+
+    /* ─── NEWSLETTER (sand-light bg) ─────────────── */
+    .newsletter-section { background: var(--sand-light); padding: 96px 56px; }
+    .newsletter-inner { max-width: 520px; margin: 0 auto; text-align: center; }
+    .newsletter-eyebrow {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta);
+      display: flex; align-items: center; gap: 16px;
+      justify-content: center; margin-bottom: 24px;
+    }
+    .newsletter-eyebrow::before,
+    .newsletter-eyebrow::after {
+      content: ''; flex: 1; max-width: 60px;
+      height: 1px; background: var(--dune);
+    }
+    .newsletter-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(36px, 4.5vw, 52px);
+      color: var(--navy); line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .newsletter-title em { font-style: italic; color: var(--terracotta); }
+    .newsletter-sub {
+      font-size: 14px; font-weight: 300; line-height: 1.75;
+      color: var(--navy); opacity: 0.58; margin-bottom: 40px;
+    }
+    .newsletter-form {
+      display: flex; border: 1px solid var(--dune);
+      border-radius: 100px; overflow: hidden;
+    }
+    .newsletter-input {
+      flex: 1; min-width: 0; padding: 15px 24px;
+      font-family: 'Jost', sans-serif; font-weight: 300; font-size: 13px;
+      background: transparent; border: none; outline: none; color: var(--navy);
+    }
+    .newsletter-input::placeholder { color: var(--navy); opacity: 0.32; }
+    .newsletter-btn {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream); background: var(--navy);
+      border: none; padding: 15px 28px; cursor: pointer; white-space: nowrap;
+      transition: background 0.25s ease;
+    }
+    .newsletter-btn:hover { background: var(--navy-mid); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background: var(--navy); padding: 64px 56px 40px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(212,196,160,0.1);
+      flex-wrap: wrap; gap: 36px;
+    }
+    .footer-logo .logo-the { opacity: 0.4; color: var(--dune); }
+    .footer-logo .logo-practice { color: var(--terracotta); }
+    .footer-links { display: flex; gap: 32px; list-style: none; flex-wrap: wrap; align-self: center; }
+    .footer-links a {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dune); text-decoration: none; opacity: 0.45;
+      transition: opacity 0.2s ease;
+    }
+    .footer-links a:hover { opacity: 1; }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 11px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.38; line-height: 2.1; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom p { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.28; }
+
+    /* ─── TALLY BUTTONS ─────────────────────────── */
+    .tally-btn {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+      border: none; padding: 15px 44px; border-radius: 100px;
+      cursor: pointer; display: inline-block;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .tally-btn:hover { transform: translateY(-2px); }
+    .tally-btn:active { transform: translateY(0); }
+    .tally-btn-cream { color: var(--terracotta); background: var(--cream); }
+    .tally-btn-cream:hover { background: var(--sand); }
+    .tally-btn-navy { color: var(--cream); background: var(--navy); }
+    .tally-btn-navy:hover { background: var(--navy-mid); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 28px; }
+      .nav-links { gap: 22px; }
+      .hero-inner { padding: 110px 28px 80px; }
+      .services, .event-section, .about-section,
+      .retreats-section, .membership-section,
+      .newsletter-section { padding: 80px 28px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .event-card { grid-template-columns: 1fr; }
+      .event-img { min-height: 300px; }
+      .about-inner { grid-template-columns: 1fr; gap: 44px; }
+      .retreats-grid { grid-template-columns: 1fr; }
+      footer { padding: 52px 28px 36px; }
+      .footer-contact { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .pill-form, .newsletter-form { flex-direction: column; border-radius: 18px; }
+      .pill-input, .newsletter-input {
+        border-radius: 100px; border: 1px solid rgba(250,244,232,0.22); padding: 14px 22px;
+      }
+      .newsletter-input { border-color: var(--dune); }
+      .pill-btn, .newsletter-btn { border-radius: 100px; padding: 14px 28px; align-self: stretch; }
+      .event-body { padding: 40px 32px; }
+      .r-card { padding: 40px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo" aria-label="The Practice CPH">
+    <span class="logo-the">The</span>
+    <span class="logo-practice">Practice</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="events.html">Events</a></li>
+    <li><a href="retreats.html">Retreats</a></li>
+    <li><a href="private.html">Private</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO (sand-light) ══════════════════════════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="grain"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow fade">The Practice CPH</p>
+    <h1 class="hero-headline fade">
+      Et sted at lande.<br>
+      Et sted at huske.<br>
+      <em>Et sted at være dig.</em>
+    </h1>
+    <p class="hero-sub fade">
+      En sanselig rejse ind i kroppen — gennem bevægelse, åndedræt og lydens vibrationer.
+    </p>
+    <div class="ctas fade">
+      <a href="events.html" class="btn-rim">Se kommende events →</a>
+      <a href="about.html" class="btn-ghost">Læs mere om mig</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand-light → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,40
+      C1200,80 960,20 720,56
+      C480,88 240,30 0,62
+      Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- ══ SERVICES (navy) ═══════════════════════════════ -->
+<section class="services" id="services" aria-label="Hvad jeg tilbyder">
+  <div class="grain" style="opacity:0.025;"></div>
+  <div class="services-inner">
+    <div class="services-header">
+      <p class="eyebrow">Hvad jeg tilbyder</p>
+      <h2 class="serif">En praksis for <em>kroppen & sindet</em></h2>
+    </div>
+    <div class="services-grid">
+      <article class="s-card fade">
+        <span class="s-marker" aria-hidden="true"></span>
+        <h3 class="s-title">Kundalini Yoga</h3>
+        <p class="s-desc">Dynamiske sæt og åndedrætsteknikker der vækker energi og skaber balance</p>
+      </article>
+      <article class="s-card fade">
+        <span class="s-marker" aria-hidden="true"></span>
+        <h3 class="s-title">Sound Healing</h3>
+        <p class="s-desc">Lydens vibrationer genopretter harmoni i kroppen og skaber dyb ro</p>
+      </article>
+      <article class="s-card fade">
+        <span class="s-marker" aria-hidden="true"></span>
+        <h3 class="s-title">Breathwork</h3>
+        <p class="s-desc">Bevidst åndedræt som frigør blokeringer og aktiverer nervesystemet</p>
+      </article>
+      <article class="s-card fade">
+        <span class="s-marker" aria-hidden="true"></span>
+        <h3 class="s-title">Meditation</h3>
+        <p class="s-desc">Guidede meditationer der beroliger sindet og styrker din indre forbindelse</p>
+      </article>
+      <article class="s-card fade">
+        <span class="s-marker" aria-hidden="true"></span>
+        <h3 class="s-title">Nervesystem Regulering</h3>
+        <p class="s-desc">Blide øvelser og teknikker til at genoprette ro i kroppen</p>
+      </article>
+      <article class="s-card fade">
+        <span class="s-marker" aria-hidden="true"></span>
+        <h3 class="s-title">Dyb Afslapning</h3>
+        <p class="s-desc">Yoga og restorative praksisser for dyb heling og afslapning</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: navy → terracotta -->
+<div class="wave-wrap" style="background:var(--terracotta);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,62
+      C1100,30 800,78 540,48
+      C280,18 140,72 0,44
+      Z" fill="#1C2B3A"/>
+  </svg>
+</div>
+
+<!-- ══ EVENT (terracotta) ════════════════════════════ -->
+<section class="event-section" id="events" aria-label="Næste event">
+  <div class="event-inner">
+    <p class="event-eyebrow-label">Næste event</p>
+    <div id="next-event-card" class="event-card fade">
+      <div class="event-img" aria-label="Event billede" style="padding:0;">
+        <img src="illustration-hands.png..png" alt="Kundalini & Sound Journey"
+          style="width:100%; height:100%; object-fit:cover; object-position:center; display:block; border-radius:0;">
+      </div>
+      <div class="event-body">
+        <p class="event-eyebrow">Kommende event</p>
+        <h2 class="event-title" id="ev-title"></h2>
+        <div class="event-tags" id="ev-tags"></div>
+        <p class="event-desc" id="ev-desc"></p>
+        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+          <a id="ev-btn" href="#" class="btn-terra" target="_blank" rel="noopener noreferrer">Reserver din plads →</a>
+          <span style="font-family:'Jost',sans-serif; font-weight:300; font-size:11px; letter-spacing:0.14em; color:var(--sand); opacity:0.75; border:1px solid rgba(212,196,160,0.22); padding:6px 16px; border-radius:100px; white-space:nowrap;">150 kr.</span>
+        </div>
+      </div>
+    </div>
+    <div id="no-upcoming-event" style="display:none; text-align:center; padding:48px 0;">
+      <p style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:28px; color:rgba(250,244,232,0.7); letter-spacing:-0.01em;">Nye events annonceres snart</p>
+      <p style="margin-top:14px; font-size:13px; font-weight:300; letter-spacing:0.15em; text-transform:uppercase; color:rgba(250,244,232,0.4);">Tilmeld dig nyhedsbrevet for at være den første til at vide det</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var events = [
+    { date: new Date(2026,5,10), label: '10. juni 2026', time: '19.00 – 21.00', location: 'Frederikssundsvej 62, 2400 KBH NV', title: 'Kundalini &amp; Sound Journey', desc: 'En aften med Kundalini kriya, sound healing og dyb afslapning. Kom som du er.', url: 'https://www.eventbrite.com/e/1990592515800?aff=oddtdtcreator' },
+    { date: new Date(2026,5,17), label: '17. juni 2026', time: '19.00 – 21.00', location: 'Frederikssundsvej 62, 2400 KBH NV', title: 'Kundalini &amp; Sound Journey', desc: 'En aften med Kundalini kriya, sound healing og dyb afslapning. Kom som du er.', url: 'https://www.eventbrite.com/e/kundalini-and-sound-journey-tickets-1990588953144' },
+    { date: new Date(2026,5,24), label: '24. juni 2026', time: '19.00 – 21.00', location: 'Frederikssundsvej 62, 2400 KBH NV', title: 'Kundalini &amp; Sound Journey', desc: 'En aften med Kundalini kriya, sound healing og dyb afslapning. Kom som du er.', url: 'https://www.eventbrite.com/e/1990592552911?aff=oddtdtcreator' }
+  ];
+  var today = new Date(); today.setHours(0,0,0,0);
+  var next = events.find(function(e) { return e.date >= today; });
+  if (next) {
+    document.getElementById('ev-title').innerHTML = next.title;
+    document.getElementById('ev-tags').innerHTML =
+      '<span class="tag">' + next.label + '</span>' +
+      '<span class="tag">' + next.time + '</span>' +
+      '<span class="tag">' + next.location + '</span>';
+    document.getElementById('ev-desc').textContent = next.desc;
+    document.getElementById('ev-btn').href = next.url;
+  } else {
+    document.getElementById('next-event-card').style.display = 'none';
+    document.getElementById('no-upcoming-event').style.display = 'block';
+  }
+})();
+</script>
+
+<!-- Wave: terracotta → sand -->
+<div class="wave-wrap" style="background:var(--sand);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,55
+      C1320,80 1080,22 840,58
+      C600,90 360,28 0,68
+      Z" fill="#B85C38"/>
+  </svg>
+</div>
+
+<!-- ══ ABOUT (sand) ══════════════════════════════════ -->
+<section class="about-section" id="about" aria-label="Om The Practice">
+  <div class="about-inner">
+    <div class="about-img fade" aria-label="Om The Practice" style="padding:0; overflow:hidden;">
+      <img src="illustration-meditating.png" alt="Om The Practice"
+        style="width:100%; height:100%; object-fit:cover; object-position:center; display:block; border-radius:28px;">
+    </div>
+    <div class="about-content fade">
+      <p class="eyebrow" style="max-width:220px;">Om mig</p>
+      <h2 class="serif">Om <em>THE PRACTICE</em></h2>
+      <p class="about-body">
+        THE PRACTICE er et rum for kroppen, nervesystemet og åndedrættet. Gennem Kundalini yoga, meditation, sound healing og dyb afslapning skaber vi plads til at give slip på det, der ikke længere tjener dig — og forbinde dig med din indre kraft.
+      </p>
+      <p class="about-body">
+        Et sted at lande. Et sted at huske. Et sted at være dig.
+      </p>
+      <a href="about.html" class="link-arrow">Læs mere om mig →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,72
+      C1260,40 980,90 700,60
+      C420,32 200,80 0,50
+      Z" fill="#EDE0C8"/>
+  </svg>
+</div>
+
+<!-- ══ RETREATS (navy) ═══════════════════════════════ -->
+<section class="retreats-section" id="retreats" aria-label="Retreats og private sessions">
+  <div class="grain" style="opacity:0.025;"></div>
+  <div class="retreats-inner">
+    <div class="retreats-header">
+      <p class="eyebrow">Fordybelse &amp; nærvær</p>
+      <h2 class="serif">Retreats &amp; <em>Private Sessions</em></h2>
+    </div>
+    <div class="retreats-grid">
+      <article class="r-card fade">
+        <p class="r-label">Retreats</p>
+        <h3 class="r-title">Flerdages fordybelse</h3>
+        <p class="r-desc">Flerdages fordybelse i natur og praksis. Kommende datoer annonceres snart.</p>
+        <a href="retreats.html" class="btn-rim-light">Læs mere →</a>
+      </article>
+      <article class="r-card fade">
+        <p class="r-label">Private Sessions</p>
+        <h3 class="r-title">Skræddersyet til dig</h3>
+        <p class="r-desc">Individuelle sessioner og corporate events skræddersyet til dig.</p>
+        <a href="private.html" class="btn-rim-light">Læs mere →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: navy → terracotta -->
+<div class="wave-wrap" style="background:var(--terracotta);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,50
+      C1180,88 860,24 560,64
+      C260,96 120,44 0,70
+      Z" fill="#1C2B3A"/>
+  </svg>
+</div>
+
+<!-- ══ ONLINE MEMBERSHIP (terracotta) ════════════════ -->
+<section class="membership-section" id="online" aria-label="Online medlemskab">
+  <div class="grain" style="opacity:0.035;"></div>
+  <div class="membership-radial"></div>
+  <div class="membership-inner">
+    <span class="badge fade">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Snart tilgængeligt
+    </span>
+    <h2 class="membership-title fade">Snart:<br><em>Online medlemskab</em></h2>
+    <p class="membership-desc fade">
+      Få adgang til guidede meditationer, yogaklasser og sound healing sessioner — når det passer dig. Tilmeld dig ventelisten og vær den første til at vide det.
+    </p>
+    <button class="tally-btn tally-btn-cream fade"
+      data-tally-open="xXvMlv" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+      Tilmeld mig →
+    </button>
+  </div>
+</section>
+
+<!-- Wave: terracotta → sand-light -->
+<div class="wave-wrap" style="background:var(--sand-light);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,44
+      C1100,82 780,18 480,58
+      C280,84 120,38 0,66
+      Z" fill="#B85C38"/>
+  </svg>
+</div>
+
+<!-- ══ NEWSLETTER (sand-light) ══════════════════════ -->
+<section class="newsletter-section" id="contact" aria-label="Nyhedsbrev">
+  <div class="newsletter-inner">
+    <p class="newsletter-eyebrow">Bliv en del af Practice</p>
+    <h2 class="newsletter-title fade">Hold dig<br><em>forbundet</em></h2>
+    <p class="newsletter-sub fade">
+      Få besked om kommende events, inspiration og invitationer.
+    </p>
+    <button class="tally-btn tally-btn-navy fade"
+      data-tally-open="xXvMlv" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+      Tilmeld mig →
+    </button>
+  </div>
+</section>
+
+<!-- Wave: sand-light → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,60
+      C1200,30 920,82 640,50
+      C360,18 180,70 0,42
+      Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- ══ FOOTER (navy) ════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="#" class="nav-logo footer-logo" aria-label="The Practice CPH">
+        <span class="logo-the">The</span>
+        <span class="logo-practice">Practice</span>
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="events.html">Events</a></li>
+        <li><a href="retreats.html">Retreats</a></li>
+        <li><a href="private.html">Private</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://www.instagram.com/thepractice.cph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
+      </ul>
+      <div class="footer-contact">
+        <p>thepractice.cph</p>
+        <p>kia@thepracticecph.dk</p>
+        <p>+45 53 64 64 59</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Practice CPH</p>
+      <p>Frederikssundsvej 62, 2400 København NV</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll blur
+  const nav = document.getElementById('nav');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 36);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Intersection Observer — fade-in
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // Trigger hero fades on load
+  document.querySelectorAll('.hero .fade').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 200 + i * 120);
+  });
+
+</script>
+<script src="https://tally.so/widgets/embed.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" width="560" height="300">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300&amp;family=Cormorant+Garamond:ital,wght@1,400&amp;display=swap');
+    </style>
+  </defs>
+
+  <rect width="560" height="300" fill="#1C2B3A"/>
+
+  <!-- "THE" thin caps -->
+  <text
+    x="280"
+    y="138"
+    text-anchor="middle"
+    font-family="'Raleway', 'Gill Sans', Futura, sans-serif"
+    font-size="22"
+    font-weight="100"
+    letter-spacing="18"
+    fill="#EDE0C8"
+    opacity="0.7"
+  >THE</text>
+
+  <!-- Thin rule -->
+  <line x1="160" y1="152" x2="400" y2="152" stroke="#D4C4A0" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- "Practice" large italic serif — terracotta -->
+  <text
+    x="280"
+    y="228"
+    text-anchor="middle"
+    font-family="'Cormorant Garamond', Palatino, Georgia, serif"
+    font-size="96"
+    font-weight="400"
+    font-style="italic"
+    fill="#B85C38"
+    letter-spacing="-2"
+  >Practice</text>
+
+  <!-- Bottom line -->
+  <line x1="160" y1="244" x2="400" y2="244" stroke="#D4C4A0" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- CPH -->
+  <text
+    x="280"
+    y="268"
+    text-anchor="middle"
+    font-family="'Raleway', 'Gill Sans', Futura, sans-serif"
+    font-size="10"
+    font-weight="100"
+    letter-spacing="8"
+    fill="#EDE0C8"
+    opacity="0.4"
+  >CPH</text>
+
+</svg>

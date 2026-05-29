@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Kia — The Practice CPH</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap');
+
+    :root {
+      --sand:       #EDE0C8;
+      --sand-light: #F5ECD8;
+      --cream:      #FAF4E8;
+      --navy:       #1C2B3A;
+      --navy-mid:   #2A3E52;
+      --terracotta: #B85C38;
+      --amber:      #C97A55;
+      --dune:       #D4C4A0;
+      --ink:        #2C2318;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--sand-light);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── GRAIN ─────────────────────────────────── */
+    .grain {
+      position: absolute; inset: 0; pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 192px 192px;
+      mix-blend-mode: multiply;
+    }
+
+    /* ─── FADE ANIMATIONS ────────────────────────── */
+    .fade {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .fade:nth-child(2) { transition-delay: 0.1s; }
+    .fade:nth-child(3) { transition-delay: 0.2s; }
+    .fade:nth-child(4) { transition-delay: 0.3s; }
+
+    /* ─── WAVE DIVIDERS ─────────────────────────── */
+    .wave-wrap {
+      display: block; overflow: hidden;
+      line-height: 0; margin-top: -2px;
+    }
+    .wave-wrap svg { display: block; width: 100%; }
+
+    /* ─── NAV ────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 22px 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease;
+    }
+    nav.scrolled {
+      background: rgba(250, 244, 232, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 rgba(28, 43, 58, 0.07);
+    }
+    .nav-logo {
+      text-decoration: none; display: flex; flex-direction: column; line-height: 1;
+    }
+    .logo-the {
+      font-size: 8.5px; font-weight: 300;
+      letter-spacing: 0.45em; text-transform: uppercase;
+      color: var(--navy); opacity: 0.55;
+    }
+    .logo-practice {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 300; font-style: italic;
+      color: var(--terracotta); letter-spacing: -0.02em; line-height: 1.05;
+    }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--navy); text-decoration: none; opacity: 0.6;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--terracotta); }
+    .nav-links a.active { opacity: 1; color: var(--terracotta); }
+
+    /* ─── HERO (sand-light) ──────────────────────── */
+    .hero {
+      min-height: 72vh; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background:
+        radial-gradient(ellipse 65% 60% at 35% 35%, rgba(184,92,56,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 45% at 70% 25%, rgba(201,122,85,0.07) 0%, transparent 48%),
+        var(--sand-light);
+    }
+    .hero-inner {
+      position: relative; z-index: 1; text-align: center;
+      padding: 130px 48px 80px; max-width: 800px;
+    }
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 40px;
+    }
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(56px, 8vw, 108px);
+      line-height: 1.05; letter-spacing: -0.03em;
+      color: var(--navy); margin-bottom: 24px;
+    }
+    .hero-headline em { font-style: italic; color: var(--terracotta); }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      line-height: 1.5; letter-spacing: -0.01em;
+      color: var(--navy); opacity: 0.55;
+    }
+
+    /* ─── ABOUT MAIN (navy bg) ───────────────────── */
+    .about-main {
+      background: var(--navy); padding: 96px 56px;
+      position: relative; overflow: hidden;
+    }
+    .about-main-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.15fr;
+      gap: 88px; align-items: start;
+    }
+
+    /* Image column */
+    .about-portrait {
+      position: sticky; top: 120px;
+    }
+    .kia-portrait-wrap {
+      position: relative;
+      width: 100%; aspect-ratio: 3/4;
+      clip-path: url(#kia-clip);
+    }
+    .kia-portrait-img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+      filter: sepia(15%) contrast(1.08) saturate(1.05);
+    }
+    .kia-portrait-overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background: rgba(184,92,56,0.10);
+      mix-blend-mode: multiply;
+    }
+    .about-portrait-caption {
+      margin-top: 20px;
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dune); opacity: 0.4;
+      text-align: center;
+    }
+
+    /* Text column */
+    .about-text-col { display: flex; flex-direction: column; gap: 0; }
+    .about-eyebrow {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--amber);
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 24px;
+    }
+    .about-eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(212,196,160,0.2); }
+    .about-headline {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(36px, 4vw, 52px);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--sand); margin-bottom: 40px;
+    }
+    .about-headline em { font-style: italic; color: var(--amber); }
+
+    .about-paragraphs { display: flex; flex-direction: column; gap: 22px; }
+    .about-p {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.9; color: var(--dune); opacity: 0.78;
+    }
+    .about-p.signature {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 18px; color: var(--amber); opacity: 1;
+      border-top: 1px solid rgba(212,196,160,0.18);
+      padding-top: 28px; margin-top: 8px;
+    }
+
+    /* ─── CREDENTIALS (sand bg) ──────────────────── */
+    .credentials {
+      background: var(--sand); padding: 96px 56px;
+      position: relative; overflow: hidden;
+    }
+    .credentials-inner { max-width: 1100px; margin: 0 auto; }
+    .credentials-header { margin-bottom: 64px; }
+    .cred-eyebrow {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--terracotta);
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 20px;
+    }
+    .cred-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--dune); }
+    .cred-headline {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .cred-headline em { font-style: italic; color: var(--terracotta); }
+
+    .credentials-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .cred-card {
+      border: 1px solid rgba(212,196,160,0.5);
+      border-radius: 20px; padding: 36px 32px;
+      display: flex; flex-direction: column; gap: 12px;
+      background: rgba(250,244,232,0.45);
+    }
+    .cred-year {
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terracotta);
+    }
+    .cred-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 24px; color: var(--navy);
+      line-height: 1.2; letter-spacing: -0.01em;
+    }
+    .cred-desc {
+      font-size: 13px; font-weight: 300;
+      line-height: 1.72; color: var(--navy); opacity: 0.5;
+      font-style: italic;
+    }
+    .cred-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      height: 100%; min-height: 120px;
+      border: 1.5px dashed rgba(184,92,56,0.2);
+      border-radius: 14px;
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--terracotta); opacity: 0.4;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background: var(--navy); padding: 64px 56px 40px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(212,196,160,0.1);
+      flex-wrap: wrap; gap: 36px;
+    }
+    .footer-logo .logo-the { opacity: 0.4; color: var(--dune); }
+    .footer-logo .logo-practice { color: var(--terracotta); }
+    .footer-links { display: flex; gap: 32px; list-style: none; flex-wrap: wrap; align-self: center; }
+    .footer-links a {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dune); text-decoration: none; opacity: 0.45;
+      transition: opacity 0.2s ease;
+    }
+    .footer-links a:hover { opacity: 1; }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 11px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.38; line-height: 2.1; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom p { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.28; }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 28px; }
+      .nav-links { gap: 22px; }
+      .hero-inner { padding: 110px 28px 70px; }
+      .about-main, .credentials { padding: 80px 28px; }
+      .about-main-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-portrait { position: static; }
+      .about-portrait-img { aspect-ratio: 4/3; max-height: 420px; }
+      .credentials-grid { grid-template-columns: 1fr; }
+      footer { padding: 52px 28px 36px; }
+      .footer-contact { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .footer-top { flex-direction: column; gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo" aria-label="The Practice CPH">
+    <span class="logo-the">The</span>
+    <span class="logo-practice">Practice</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="events.html">Events</a></li>
+    <li><a href="retreats.html">Retreats</a></li>
+    <li><a href="private.html">Private</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO (sand-light) ════════════════════════════ -->
+<section class="hero" aria-label="Om Kia">
+  <div class="grain"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow fade">The Practice CPH</p>
+    <h1 class="hero-headline fade">Om <em>The Practice</em></h1>
+  </div>
+</section>
+
+<!-- Wave: sand-light → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,40
+      C1200,80 960,20 720,56
+      C480,88 240,30 0,62
+      Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- ══ ABOUT MAIN (navy) ════════════════════════════ -->
+<section class="about-main" aria-label="Om Kia">
+  <div class="grain" style="opacity:0.025;"></div>
+  <div class="about-main-inner">
+
+    <!-- Portrait -->
+    <div class="about-portrait fade">
+
+      <!-- Organic clip-path shape -->
+      <svg width="0" height="0" style="position:absolute; overflow:hidden;">
+        <defs>
+          <clipPath id="kia-clip" clipPathUnits="objectBoundingBox">
+            <path d="
+              M 0.05,0.04
+              C 0.22,-0.02 0.52,0.04 0.76,0.01
+              C 0.90,-0.01 1.00,0.07 0.97,0.22
+              C 0.95,0.36 1.01,0.52 0.97,0.68
+              C 0.94,0.80 1.01,0.92 0.92,0.98
+              C 0.78,1.04 0.50,0.98 0.28,1.01
+              C 0.12,1.03 -0.01,0.96 0.01,0.82
+              C 0.03,0.66 -0.02,0.50 0.02,0.34
+              C 0.04,0.20 -0.02,0.10 0.05,0.04
+              Z
+            "/>
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div class="kia-portrait-wrap" aria-label="Foto af Kia">
+        <img src="kia.jpg" alt="Kia — The Practice CPH" class="kia-portrait-img">
+        <div class="kia-portrait-overlay"></div>
+      </div>
+
+      <p class="about-portrait-caption">Kia — The Practice CPH</p>
+    </div>
+
+    <!-- Text -->
+    <div class="about-text-col">
+      <p class="about-eyebrow fade">Om mig</p>
+      <h2 class="about-headline fade">Et rum for <em>det levede liv</em></h2>
+      <div class="about-paragraphs">
+        <p class="about-p fade">
+          The Practice er skabt af mig, Kia Hartelius.
+        </p>
+        <p class="about-p fade">
+          Jeg er mor til to, iværksætter, kreativ sjæl — og et menneske, der selv er på vej hjem.
+        </p>
+        <p class="about-p fade">
+          Ikke hjem til et sted. Men hjem til mig selv.
+        </p>
+        <p class="about-p fade">
+          Det er den rejse, der førte mig til Kundalini yoga, til åndedrættet, til lydens vibrationer og til stilheden midt i alt det, livet fylder os med. Jeg er nysgerrig på livet — på hvad der sker, når vi tør sætte farten ned og faktisk mærke efter.
+        </p>
+        <p class="about-p fade">
+          The Practice opstod fra den nysgerrighed. Fra trangen til at skabe et rum, hvor det er okay at ankomme præcis som man er. Ikke perfekt. Ikke overskudsagtig. Bare til stede.
+        </p>
+        <p class="about-p fade">
+          Jeg underviser i Kundalini yoga og guider mennesker gennem åndedræt, meditation og sound healing — ikke fordi jeg har alle svarene, men fordi jeg ved, hvad det gør ved kroppen og nervesystemet at give sig selv den slags rum.
+        </p>
+        <p class="about-p signature fade">
+          Kom som du er. Vi finder vejen hjem sammen. — Kia
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Wave: navy → navy (footer) -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,52
+      C1100,22 760,68 440,38
+      C220,18 80,52 0,36
+      Z" fill="#1C2B3A"/>
+  </svg>
+</div>
+
+<!-- ══ FOOTER (navy) ════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="nav-logo footer-logo" aria-label="The Practice CPH">
+        <span class="logo-the">The</span>
+        <span class="logo-practice">Practice</span>
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="events.html">Events</a></li>
+        <li><a href="retreats.html">Retreats</a></li>
+        <li><a href="private.html">Private</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://www.instagram.com/thepractice.cph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
+      </ul>
+      <div class="footer-contact">
+        <p>thepractice.cph</p>
+        <p>kia@thepracticecph.dk</p>
+        <p>+45 53 64 64 59</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Practice CPH</p>
+      <p>Frederikssundsvej 62, 2400 København NV</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll blur
+  const nav = document.getElementById('nav');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 36);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Intersection Observer — fade-in
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // Trigger hero fades on load
+  document.querySelectorAll('.hero .fade').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 200 + i * 130);
+  });
+</script>
+</body>
+</html>

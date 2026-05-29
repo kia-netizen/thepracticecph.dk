@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 100" width="640" height="100">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300&amp;family=Cormorant+Garamond:ital,wght@1,400&amp;display=swap');
+    </style>
+  </defs>
+
+  <rect width="640" height="100" fill="#1C2B3A"/>
+
+  <!-- "THE" -->
+  <text
+    x="60"
+    y="62"
+    font-family="'Raleway', 'Gill Sans', Futura, sans-serif"
+    font-size="18"
+    font-weight="100"
+    letter-spacing="10"
+    fill="#EDE0C8"
+    opacity="0.6"
+  >THE</text>
+
+  <!-- Vertical divider -->
+  <line x1="148" y1="26" x2="148" y2="74" stroke="#D4C4A0" stroke-width="0.7" opacity="0.35"/>
+
+  <!-- "Practice" italic serif -->
+  <text
+    x="168"
+    y="68"
+    font-family="'Cormorant Garamond', Palatino, Georgia, serif"
+    font-size="58"
+    font-weight="400"
+    font-style="italic"
+    fill="#B85C38"
+    letter-spacing="-1"
+  >Practice</text>
+
+  <!-- "· CPH" -->
+  <text
+    x="516"
+    y="62"
+    font-family="'Raleway', 'Gill Sans', Futura, sans-serif"
+    font-size="11"
+    font-weight="100"
+    letter-spacing="5"
+    fill="#EDE0C8"
+    opacity="0.35"
+  >· CPH</text>
+
+</svg>

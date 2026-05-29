@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)file:///Users/kiahartelius/Downloads/thepractice-brand-guidelines_3.html -->
+<html lang="da"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Practice CPH — Brand Guidelines</title>
+<link href="./The Practice CPH — Brand Guidelines_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --sand: #EDE0C8;
+    --sand-light: #F5ECD8;
+    --sand-dark: #D4C4A0;
+    --navy: #1C2B3A;
+    --navy-mid: #2A3E52;
+    --terracotta: #B85C38;
+    --terracotta-light: #C97A55;
+    --cream: #FAF4E8;
+    --ink: #1A1A1A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(184,92,56,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 20%, rgba(184,92,56,0.12) 0%, transparent 60%);
+  }
+
+  .cover-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta-light);
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(52px, 8vw, 96px);
+    color: var(--sand-light);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--terracotta-light);
+  }
+
+  .cover-sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand-dark);
+    margin-top: 40px;
+    position: relative;
+  }
+
+  .cover-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--terracotta);
+    margin: 24px auto;
+    position: relative;
+  }
+
+  /* LAYOUT */
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  .page + .page {
+    border-top: 1px solid var(--sand-dark);
+  }
+
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand-dark);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 5vw, 56px);
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .body-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3a3530;
+    max-width: 560px;
+  }
+
+  /* COLORS */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .color-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .color-swatch {
+    height: 100px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+  }
+
+  .color-swatch.texture::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    border-radius: 4px 4px 0 0;
+    mix-blend-mode: multiply;
+  }
+
+  .color-info {
+    background: white;
+    padding: 12px 14px;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid var(--sand-dark);
+    border-top: none;
+  }
+
+  .color-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .color-hex {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #888;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .color-role {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* TYPOGRAPHY */
+  .type-specimen {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    align-items: start;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+
+  .type-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .type-meta {
+    padding-top: 8px;
+  }
+
+  .type-role {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+
+  .type-family {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .type-specs {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.7;
+  }
+
+  .display-sample {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 64px;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .display-sample em { font-style: italic; color: var(--terracotta); }
+
+  .heading-sample {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 36px;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+
+  .body-sample {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a3530;
+    max-width: 480px;
+  }
+
+  .label-sample {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+
+  /* VOICE */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+
+  .voice-card {
+    padding: 32px;
+    border: 1px solid var(--sand-dark);
+    border-radius: 4px;
+    background: var(--sand-light);
+  }
+
+  .voice-card.dark {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .voice-card-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .voice-card.dark .voice-card-label {
+    color: var(--terracotta-light);
+  }
+
+  .voice-word {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--navy);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .voice-card.dark .voice-word {
+    color: var(--sand-light);
+  }
+
+  .voice-word em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .voice-card.dark .voice-word em {
+    color: var(--terracotta-light);
+  }
+
+  /* DO / DON'T */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .do-card, .dont-card {
+    padding: 28px 32px;
+    border-radius: 4px;
+  }
+
+  .do-card {
+    background: #f0ebe0;
+    border-left: 3px solid var(--terracotta);
+  }
+
+  .dont-card {
+    background: #f0ebe0;
+    border-left: 3px solid #aaa;
+    opacity: 0.7;
+  }
+
+  .do-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+  }
+
+  .dont-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 12px;
+  }
+
+  .example-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--navy);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .dont-card .example-text {
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  /* LOGO USAGE */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .logo-card {
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    gap: 16px;
+    min-height: 180px;
+  }
+
+  .logo-card.light-bg { background: var(--sand-light); border: 1px solid var(--sand-dark); }
+  .logo-card.cream-bg { background: var(--cream); border: 1px solid var(--sand-dark); }
+  .logo-card.dark-bg { background: var(--navy); }
+  .logo-card.terra-bg { background: var(--terracotta); }
+
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .logo-text.on-dark { color: var(--sand-light); }
+  .logo-text.on-light { color: var(--navy); }
+  .logo-text.on-terra { color: var(--cream); }
+
+  .logo-sub-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+  }
+
+  .logo-sub-text.on-dark { color: var(--sand-dark); }
+  .logo-sub-text.on-light { color: var(--terracotta); }
+  .logo-sub-text.on-terra { color: rgba(250,244,232,0.7); }
+
+  .card-note {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* IMAGERY */
+  .imagery-principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .imagery-card {
+    padding: 28px 24px;
+    background: var(--sand-light);
+    border: 1px solid var(--sand-dark);
+    border-radius: 4px;
+  }
+
+  .imagery-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .imagery-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .imagery-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5a5248;
+  }
+
+  /* SPACING */
+  .spacing-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .spacing-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spacing-vis {
+    background: var(--navy);
+    width: 24px;
+    border-radius: 2px;
+  }
+
+  .spacing-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--terracotta);
+    text-align: center;
+  }
+
+  .spacing-val {
+    font-size: 11px;
+    color: #888;
+    font-family: monospace;
+  }
+
+  /* TAGLINE */
+  .tagline-section {
+    background: var(--navy);
+    padding: 80px 48px;
+    text-align: center;
+  }
+
+  .tagline-words {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta-light);
+    margin-bottom: 32px;
+  }
+
+  .tagline-words span {
+    margin: 0 12px;
+    opacity: 0.5;
+  }
+
+  .tagline-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(24px, 4vw, 40px);
+    color: var(--sand-light);
+    line-height: 1.4;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* FOOTER */
+  .guidelines-footer {
+    background: var(--navy);
+    padding: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    color: var(--sand-light);
+    text-transform: uppercase;
+  }
+
+  .footer-note {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--sand-dark);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 60px 24px; }
+    .type-row { grid-template-columns: 1fr; }
+    .voice-grid, .do-dont, .logo-grid { grid-template-columns: 1fr; }
+    .imagery-principles { grid-template-columns: 1fr; }
+    .guidelines-footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Brand Guidelines</div>
+  <div class="cover-title">The<br><em>Practice</em></div>
+  <div class="cover-divider"></div>
+  <div class="cover-sub">thepractice.cph &nbsp;·&nbsp; 2026</div>
+</div>
+
+<!-- 01 BRAND ESSENCE -->
+<div class="page">
+  <div class="section-label">01 &nbsp; Brand Essence</div>
+  <h2 class="section-title">Et sted at<br><em>lande. Huske.</em><br>Være.</h2>
+  <p class="body-text" style="margin-top: 32px;">The Practice er et rum for kroppen, nervesystemet og åndedrættet. Brandet bærer en dyb ro — det er hverken klinisk eller overdrevent spirituelt. Det er varmt, jordnært og forankret.</p>
+  <p class="body-text" style="margin-top: 20px;">Æstetikken er inspireret af 70'ernes bløde grafik, vintagepostere og botaniske illustrationer — kombineret med et moderne, stille typografisk udtryk.</p>
+
+  <div class="voice-grid" style="margin-top: 56px;">
+    <div class="voice-card">
+      <div class="voice-card-label">Brandets kerne</div>
+      <div class="voice-word">Ro<br><em>Balance</em><br>Forbindelse</div>
+    </div>
+    <div class="voice-card dark">
+      <div class="voice-card-label">Brandets løfte</div>
+      <div class="voice-word">"En sanselig rejse ind i dig selv — gennem bevægelse, <em>åndedræt</em> og lydens vibrationer."</div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 FARVER -->
+<div class="page">
+  <div class="section-label">02 &nbsp; Farvepalette</div>
+  <h2 class="section-title">Varme farver<br>fra <em>jordens</em> lag</h2>
+  <p class="body-text">Paletten er hentet direkte fra invitationernes æstetik — sandbeige, dybblå og brændt terracotta. Farverne skaber kontrast uden skarphed.</p>
+
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="color-swatch texture" style="background:#EDE0C8;"></div>
+      <div class="color-info">
+        <span class="color-name">Sand</span>
+        <span class="color-hex">#EDE0C8</span>
+        <span class="color-role">Primær baggrund</span>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch texture" style="background:#1C2B3A;"></div>
+      <div class="color-info">
+        <span class="color-name">Midnight</span>
+        <span class="color-hex">#1C2B3A</span>
+        <span class="color-role">Primær tekst / navy</span>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch texture" style="background:#B85C38;"></div>
+      <div class="color-info">
+        <span class="color-name">Terracotta</span>
+        <span class="color-hex">#B85C38</span>
+        <span class="color-role">Accent / fremhævning</span>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch texture" style="background:#FAF4E8;"></div>
+      <div class="color-info">
+        <span class="color-name">Cream</span>
+        <span class="color-hex">#FAF4E8</span>
+        <span class="color-role">Lys baggrund / luft</span>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch texture" style="background:#C97A55;"></div>
+      <div class="color-info">
+        <span class="color-name">Amber</span>
+        <span class="color-hex">#C97A55</span>
+        <span class="color-role">Sekundær accent</span>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch texture" style="background:#D4C4A0;"></div>
+      <div class="color-info">
+        <span class="color-name">Dune</span>
+        <span class="color-hex">#D4C4A0</span>
+        <span class="color-role">Separatorer / borders</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 TYPOGRAFI -->
+<div class="page">
+  <div class="section-label">03 &nbsp; Typografi</div>
+  <h2 class="section-title">Skriften bærer<br><em>stilheden</em></h2>
+  <p class="body-text">To skriftfamilier i dialog: en serif med organisk karakter til display og overskrifter, og en let sans-serif til brødtekst og labels.</p>
+
+  <div class="type-specimen">
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Display</div>
+        <div class="type-family">Cormorant Garamond</div>
+        <div class="type-specs">Light 300<br>Italic for fremhævning<br>Tracking: -0.01em<br>Bruges til: titler, citat, hero</div>
+      </div>
+      <div class="display-sample">Kundalini<br><em>&amp; Sound</em></div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Overskrift</div>
+        <div class="type-family">Cormorant Garamond</div>
+        <div class="type-specs">Regular 400<br>32–48px<br>Bruges til: sektioner, events</div>
+      </div>
+      <div class="heading-sample">En sanselig rejse ind i dig selv</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Brødtekst</div>
+        <div class="type-family">Jost</div>
+        <div class="type-specs">Light 300<br>15–16px, linjehøjde 1.8<br>Bruges til: beskrivelser, info</div>
+      </div>
+      <div class="body-sample">Gennem Kundalini yoga, meditation, sound healing og dyb afslapning skaber vi plads til at give slip på det, der ikke længere tjener dig — og forbinde dig med din indre kraft.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-role">Label / Caption</div>
+        <div class="type-family">Jost</div>
+        <div class="type-specs">Regular 400<br>10–11px<br>Tracking: 0.25–0.35em<br>Altid versaler</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="label-sample">Kundalini Kriya · Sound Healing · Meditation</div>
+        <div class="label-sample" style="color: var(--navy);">Dato · Tidspunkt · Adresse</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 TONE OF VOICE -->
+<div class="page">
+  <div class="section-label">04 &nbsp; Tone of Voice</div>
+  <h2 class="section-title">Varm, rolig<br>og <em>nærværende</em></h2>
+  <p class="body-text">Sproget hos The Practice er som rummet selv — der er plads. Ingen jag. Ingen salgstale. Teksten inviterer indefra.</p>
+
+  <div class="do-dont">
+    <div class="do-card">
+      <div class="do-label">✓ &nbsp; Skriv sådan</div>
+      <div class="example-text">"Kom som du er. Vi skaber rummet sammen."</div>
+    </div>
+    <div class="dont-card">
+      <div class="dont-label">✗ &nbsp; Undgå dette</div>
+      <div class="example-text">"Tilmeld dig NU! Kun få pladser tilbage!"</div>
+    </div>
+    <div class="do-card">
+      <div class="do-label">✓ &nbsp; Skriv sådan</div>
+      <div class="example-text">"Et sted at lande. Et sted at huske. Et sted at være dig."</div>
+    </div>
+    <div class="dont-card">
+      <div class="dont-label">✗ &nbsp; Undgå dette</div>
+      <div class="example-text">"Vores unikke program giver dig maksimalt udbytte af din investering."</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px; padding: 32px; background: var(--sand-light); border: 1px solid var(--sand-dark); border-radius: 4px;">
+    <div class="section-label" style="margin-bottom: 24px;">Nøgleord i sproget</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Ro</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Balance</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Forbindelse</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Nærvær</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Forankring</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Sanselig</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Vibrationer</span>
+      <span style="font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 18px; color: var(--navy); padding: 6px 16px; border: 1px solid var(--sand-dark); border-radius: 2px;">Åndedræt</span>
+    </div>
+  </div>
+</div>
+
+<!-- 05 LOGO -->
+<div class="page">
+  <div class="section-label">05 &nbsp; Logo &amp; Wordmark</div>
+  <h2 class="section-title">Simpelt.<br><em>Tidløst.</em></h2>
+  <p class="body-text">Logotypen er sat i Cormorant Garamond med generøst letter-spacing. Den lille stjerne/sol-ikon fra materialerne kan bruges som standalone symbol.</p>
+
+  <div class="logo-grid">
+    <div>
+      <div class="logo-card light-bg">
+        <div class="logo-text on-light">THE PRACTICE</div>
+        <div class="logo-sub-text on-light">thepractice.cph</div>
+      </div>
+      <div class="card-note">På sand baggrund</div>
+    </div>
+    <div>
+      <div class="logo-card dark-bg">
+        <div class="logo-text on-dark">THE PRACTICE</div>
+        <div class="logo-sub-text on-dark">thepractice.cph</div>
+      </div>
+      <div class="card-note">På navy baggrund</div>
+    </div>
+    <div>
+      <div class="logo-card cream-bg">
+        <div class="logo-text on-light">THE PRACTICE</div>
+        <div class="logo-sub-text on-light">thepractice.cph</div>
+      </div>
+      <div class="card-note">På cream baggrund</div>
+    </div>
+    <div>
+      <div class="logo-card terra-bg">
+        <div class="logo-text on-terra">THE PRACTICE</div>
+        <div class="logo-sub-text on-terra">thepractice.cph</div>
+      </div>
+      <div class="card-note">På terracotta</div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 GRAFISKE ELEMENTER -->
+<div class="page">
+  <div class="section-label">06 &nbsp; Grafiske Elementer</div>
+  <h2 class="section-title">Organiske mønstre<br>og <em>botanik</em></h2>
+  <p class="body-text">De grafiske elementer fra invitationerne — blomster, måner, sol, chakra-figur og bølgende rammer — er brandets visuelle DNA. De bruges med omhu og aldrig som fyld.</p>
+
+  <div class="imagery-principles">
+    <div class="imagery-card">
+      <span class="imagery-icon">🌸</span>
+      <div class="imagery-title">Botaniske motiver</div>
+      <div class="imagery-desc">Valmuer, blade og blomster i navy og terracotta. Altid håndtegnede eller illustrerede — aldrig fotografiske eller for polerede.</div>
+    </div>
+    <div class="imagery-card">
+      <span class="imagery-icon">🌙</span>
+      <div class="imagery-title">Himmellegemer</div>
+      <div class="imagery-desc">Sol, måne og stjerner bruges som symbolske elementer. Skaber en kosmisk, sanselig stemning uden at blive esoterisk.</div>
+    </div>
+    <div class="imagery-card">
+      <span class="imagery-icon">〰️</span>
+      <div class="imagery-title">Bølgerammer</div>
+      <div class="imagery-desc">Den karakteristiske wavy border fra materialerne bruges til at indramme indhold. Aldrig skarpe hjørner i grafisk design.</div>
+    </div>
+    <div class="imagery-card">
+      <span class="imagery-icon">✦</span>
+      <div class="imagery-title">Tekstur &amp; korn</div>
+      <div class="imagery-desc">Et let "aged paper" look med grain-tekstur på baggrunde giver varme og dybde. Undgå rene hvide eller perfekte digitale flader.</div>
+    </div>
+    <div class="imagery-card">
+      <span class="imagery-icon">☀️</span>
+      <div class="imagery-title">Chakra &amp; figur</div>
+      <div class="imagery-desc">Den mediterende silhouet med chakra-prikker er brandets centrale ikonografi. Bruges sparsomt og altid med ærefrygt.</div>
+    </div>
+    <div class="imagery-card">
+      <span class="imagery-icon">·</span>
+      <div class="imagery-title">Skilletegn</div>
+      <div class="imagery-desc">Punktum (·) og tankestreg (–) bruges som grafiske separatorer i tekst og labels. Enkelt og konsekvent.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAGLINE BREAK -->
+<div class="tagline-section">
+  <div class="tagline-words">Ro <span>·</span> Balance <span>·</span> Forbindelse</div>
+  <div class="tagline-text">"Et sted at lande. Et sted at huske.<br>Et sted at være dig."</div>
+</div>
+
+<!-- 07 FOTOGRAFI -->
+<div class="page">
+  <div class="section-label">07 &nbsp; Fotografi</div>
+  <h2 class="section-title">Blødt lys,<br><em>ægte øjeblikke</em></h2>
+  <p class="body-text">Fotografier hos The Practice har altid et varmt, naturligt lys. De viser ægte nærvær — ikke polerede stock-billeder. Tone og stemning er vigtigere end skarphed.</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px;">
+    <div>
+      <div style="background: var(--sand); height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 15px; color: var(--navy); font-style: italic; text-align: center; padding: 24px; border: 1px solid var(--sand-dark);">Varmt, indirekte lys<br>Bløde skygger<br>Organiske materialer</div>
+      <div class="card-note" style="margin-top: 8px;">✓ &nbsp; Ønsket udtryk</div>
+    </div>
+    <div>
+      <div style="background: #f0f0f0; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: &#39;Cormorant Garamond&#39;, serif; font-size: 15px; color: #aaa; font-style: italic; text-align: center; padding: 24px; border: 1px solid #ddd; text-decoration: line-through;">Koldt studielys<br>Hvid baggrund<br>Perfekte poseringer</div>
+      <div class="card-note" style="margin-top: 8px;">✗ &nbsp; Undgå</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="guidelines-footer">
+  <div class="footer-brand">The Practice CPH</div>
+  <div class="footer-note">Brand Guidelines · 2026 · thepractice.cph</div>
+</div>
+
+
+
+</body></html>
