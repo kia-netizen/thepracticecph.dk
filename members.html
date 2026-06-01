@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Medlemsområde — The Practice CPH</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap');
+
+    :root {
+      --sand:       #EDE0C8;
+      --sand-light: #F5ECD8;
+      --cream:      #FAF4E8;
+      --navy:       #1C2B3A;
+      --navy-mid:   #2A3E52;
+      --terracotta: #B85C38;
+      --amber:      #C97A55;
+      --dune:       #D4C4A0;
+      --ink:        #2C2318;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; font-weight: 300; background: var(--sand-light); color: var(--ink); overflow-x: hidden; }
+
+    .grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 192px 192px; mix-blend-mode: multiply;
+    }
+    .fade { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .fade:nth-child(2) { transition-delay: 0.09s; }
+    .fade:nth-child(3) { transition-delay: 0.18s; }
+    .fade:nth-child(4) { transition-delay: 0.27s; }
+    .wave-wrap { display: block; overflow: hidden; line-height: 0; margin-top: -2px; }
+    .wave-wrap svg { display: block; width: 100%; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 22px 56px; display: flex; align-items: center; justify-content: space-between; transition: background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease; }
+    nav.scrolled { background: rgba(250,244,232,0.88); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(28,43,58,0.07); }
+    .nav-logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1; }
+    .logo-the { font-size: 8.5px; font-weight: 300; letter-spacing: 0.45em; text-transform: uppercase; color: var(--navy); opacity: 0.55; }
+    .logo-practice { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--terracotta); letter-spacing: -0.02em; line-height: 1.05; }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a { font-size: 10px; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; color: var(--navy); text-decoration: none; opacity: 0.6; transition: opacity 0.2s ease, color 0.2s ease; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--terracotta); }
+
+    /* MOBILE MENU */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5.5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--navy); border-radius: 2px; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.2s ease, background 0.2s ease; }
+    .hamburger.open span { background: var(--sand); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { position: fixed; top: 0; left: 0; right: 0; background: var(--navy); z-index: 199; padding: 96px 40px 48px; display: flex; flex-direction: column; transform: translateY(-110%); transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 8px 40px rgba(28,43,58,0.25); }
+    .mobile-menu.open { transform: translateY(0); }
+    .mobile-menu a { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sand); text-decoration: none; padding: 20px 0; border-bottom: 1px solid rgba(212,196,160,0.1); opacity: 0.7; transition: opacity 0.2s ease, color 0.2s ease; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { opacity: 1; color: var(--terracotta); }
+    @media (max-width: 768px) { .hamburger { display: flex; } .nav-links { display: none !important; } }
+
+    /* HERO */
+    .hero {
+      min-height: 52vh; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background:
+        radial-gradient(ellipse 65% 60% at 35% 35%, rgba(184,92,56,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 45% at 72% 22%, rgba(201,122,85,0.07) 0%, transparent 48%),
+        var(--sand-light);
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 40%; pointer-events: none; z-index: 0;
+      background: linear-gradient(to bottom, rgba(184,92,56,0.12) 0%, transparent 100%);
+    }
+    .hero-inner { position: relative; z-index: 1; text-align: center; padding: 130px 48px 64px; max-width: 640px; }
+    .hero-eyebrow { font-size: 10px; font-weight: 300; letter-spacing: 0.38em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 36px; }
+    .hero-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(48px, 7vw, 88px); line-height: 1.07; letter-spacing: -0.025em; color: var(--navy); margin-bottom: 18px; }
+    .hero-headline em { font-style: italic; color: var(--terracotta); }
+    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(17px, 2vw, 23px); color: var(--navy); opacity: 0.5; letter-spacing: -0.01em; }
+
+    /* LOGIN SECTION (navy) */
+    .login-section { background: var(--navy); padding: 96px 56px; position: relative; overflow: hidden; }
+    .login-inner { max-width: 480px; margin: 0 auto; position: relative; }
+    .login-eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); display: flex; align-items: center; gap: 18px; margin-bottom: 40px; justify-content: center; }
+    .login-eyebrow::before, .login-eyebrow::after { content: ''; flex: 1; max-width: 48px; height: 1px; background: rgba(212,196,160,0.2); }
+    .login-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(32px, 4vw, 46px); color: var(--sand); line-height: 1.1; letter-spacing: -0.02em; text-align: center; margin-bottom: 48px; }
+    .login-headline em { font-style: italic; color: var(--amber); }
+
+    .login-form { display: flex; flex-direction: column; gap: 16px; }
+    .field-label { font-size: 10px; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dune); opacity: 0.6; margin-bottom: 8px; display: block; }
+    .field-wrap { display: flex; flex-direction: column; }
+    .field-input {
+      width: 100%; padding: 16px 20px;
+      font-family: 'Jost', sans-serif; font-weight: 300; font-size: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(212,196,160,0.18);
+      border-radius: 12px; color: var(--sand); outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .field-input::placeholder { color: var(--dune); opacity: 0.35; }
+    .field-input:focus { border-color: rgba(184,92,56,0.45); background: rgba(255,255,255,0.06); }
+
+    .btn-login {
+      width: 100%; margin-top: 8px;
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cream); background: var(--terracotta);
+      border: none; padding: 17px; border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .btn-login:hover { background: var(--amber); transform: translateY(-2px); }
+    .btn-login:active { transform: translateY(0); }
+
+    .login-footer { text-align: center; margin-top: 28px; }
+    .login-footer p { font-size: 12px; font-weight: 300; letter-spacing: 0.1em; color: var(--dune); opacity: 0.45; }
+    .login-footer a { color: var(--amber); text-decoration: none; opacity: 0.8; transition: opacity 0.2s ease; }
+    .login-footer a:hover { opacity: 1; }
+
+    /* FOOTER */
+    footer { background: var(--navy); padding: 64px 56px 40px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 48px; border-bottom: 1px solid rgba(212,196,160,0.1); flex-wrap: wrap; gap: 36px; }
+    .footer-logo .logo-the { opacity: 0.4; color: var(--dune); }
+    .footer-logo .logo-practice { color: var(--terracotta); }
+    .footer-links { display: flex; gap: 32px; list-style: none; flex-wrap: wrap; align-self: center; }
+    .footer-links a { font-size: 10px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); text-decoration: none; opacity: 0.45; transition: opacity 0.2s ease; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 11px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.38; line-height: 2.1; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.28; }
+
+    @media (max-width: 960px) {
+      nav { padding: 18px 28px; } .nav-links { gap: 22px; }
+      .hero-inner { padding: 110px 28px 56px; }
+      .login-section { padding: 80px 28px; }
+      footer { padding: 52px 28px 36px; } .footer-contact { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .footer-top { flex-direction: column; gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo" aria-label="The Practice CPH">
+    <span class="logo-the">The</span>
+    <span class="logo-practice">Practice</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="events.html">Events</a></li>
+    <li><a href="retreats.html">Retreats</a></li>
+    <li><a href="private.html">Private</a></li>
+    <li><a href="members.html" class="active">Online</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Åbn menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobilmenu">
+  <a href="events.html">Events</a>
+  <a href="retreats.html">Retreats</a>
+  <a href="private.html">Private</a>
+  <a href="members.html">Online</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO (sand-light) -->
+<section class="hero" aria-label="Online medlemsområde">
+  <div class="grain"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow fade">The Practice CPH</p>
+    <h1 class="hero-headline fade"><em>Online</em> Medlemsområde</h1>
+    <p class="hero-sub fade">Log ind for at tilgå dit indhold</p>
+  </div>
+</section>
+
+<!-- Wave: sand-light → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,40 C1200,80 960,20 720,56 C480,88 240,30 0,62 Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- LOGIN SECTION (navy) -->
+<section class="login-section" aria-label="Log ind">
+  <div class="grain" style="opacity:0.025;"></div>
+  <div class="login-inner">
+    <p class="login-eyebrow fade">Medlemsområde</p>
+    <h2 class="login-headline fade">Log ind med<br><em>din e-mail</em></h2>
+
+    <form class="login-form fade" onsubmit="return false;">
+      <div class="field-wrap">
+        <label class="field-label" for="email">E-mail</label>
+        <input class="field-input" type="email" id="email" name="email"
+          placeholder="din@email.dk" autocomplete="email" required>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="password">Adgangskode</label>
+        <input class="field-input" type="password" id="password" name="password"
+          placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button class="btn-login" type="submit">Log ind</button>
+    </form>
+
+    <div class="login-footer fade">
+      <p>Ikke medlem endnu? <a href="contact.html">Kontakt mig</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: navy → navy (footer — subtle divider) -->
+<div style="background:var(--navy); border-top: 1px solid rgba(212,196,160,0.08); height: 1px;"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="nav-logo footer-logo" aria-label="The Practice CPH">
+        <span class="logo-the">The</span>
+        <span class="logo-practice">Practice</span>
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="events.html">Events</a></li>
+        <li><a href="retreats.html">Retreats</a></li>
+        <li><a href="private.html">Private</a></li>
+        <li><a href="members.html">Online</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://www.instagram.com/thepractice.cph" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      </ul>
+      <div class="footer-contact">
+        <p>thepractice.cph</p>
+        <p>kia@thepracticecph.dk</p>
+        <p>+45 53 64 64 59</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Practice CPH</p>
+      <p>Frederikssundsvej 62, 2400 København NV</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Nav scroll blur
+  const nav = document.getElementById('nav');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { nav.classList.toggle('scrolled', window.scrollY > 36); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Fade animations
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+  document.querySelectorAll('.hero .fade').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 200 + i * 130);
+  });
+</script>
+</body>
+</html>
