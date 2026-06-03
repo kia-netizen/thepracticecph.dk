@@ -71,7 +71,7 @@
 
     /* ── HERO ── */
     .hero { min-height: 92vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: var(--navy); }
-    .hero-bg { position: absolute; inset: 0; background-image: url('images/stedet/Udend%C3%B8rs%20dag.png'); background-size: cover; background-position: center; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('images/retreat-hus.jpg'); background-size: cover; background-position: center; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(28,43,58,0.68) 0%, rgba(28,43,58,0.38) 50%, rgba(28,43,58,0.78) 100%); z-index: 1; }
     .hero-inner { position: relative; z-index: 2; text-align: center; padding: 140px 48px 80px; max-width: 860px; }
     .hero-label { font-size: 10px; font-weight: 400; letter-spacing: 0.38em; text-transform: uppercase; color: var(--dune); margin-bottom: 32px; opacity: 0.9; }
@@ -111,10 +111,10 @@
     .gallery-header { text-align: center; margin-bottom: 56px; }
     .gallery-label { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
     .gallery-subtext { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); color: var(--navy); opacity: 0.55; letter-spacing: -0.01em; }
-    .masonry { column-count: 3; column-gap: 14px; }
-    .masonry-item { break-inside: avoid; margin-bottom: 14px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(28,43,58,0.06), 0 8px 24px rgba(28,43,58,0.04); }
-    .masonry-item img { width: 100%; display: block; filter: sepia(10%) brightness(0.97); transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), filter 0.35s ease; }
-    .masonry-item:hover img { transform: scale(1.03); filter: sepia(4%) brightness(1); }
+    .photo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .photo-grid-item { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(28,43,58,0.06), 0 8px 24px rgba(28,43,58,0.04); }
+    .photo-grid-item img { width: 100%; height: 200px; object-fit: cover; display: block; filter: sepia(10%) brightness(0.97); transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), filter 0.35s ease; }
+    .photo-grid-item:hover img { transform: scale(1.04); filter: sepia(4%) brightness(1); }
 
     /* ── PROGRAM ── */
     .program-section { background: var(--sand); padding: 100px 56px; position: relative; overflow: hidden; }
@@ -180,7 +180,7 @@
       .desc-img-col { position: static; }
       .desc-img { aspect-ratio: 4/3; max-height: 420px; }
       .takeaway-grid { grid-template-columns: 1fr; gap: 20px; }
-      .masonry { column-count: 2; }
+      .photo-grid { grid-template-columns: repeat(3, 1fr); }
       .program-grid { grid-template-columns: 1fr; gap: 48px; }
       .practical-grid { grid-template-columns: 1fr; }
       .price-grid { grid-template-columns: 1fr; }
@@ -190,7 +190,7 @@
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
       .hero-inner { padding: 110px 20px 64px; }
-      .masonry { column-count: 1; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -252,7 +252,7 @@
   <div class="desc-inner">
     <div class="desc-img-col fade">
       <div class="desc-img">
-        <img src="images/stedet/Anneks%201.png" alt="Retreat stedet i Rørvig" loading="lazy">
+        <img src="images/retreat-natur-skov.jpg" alt="Skov i Rørvig" loading="lazy">
       </div>
     </div>
     <div class="desc-text-col">
@@ -297,100 +297,6 @@
     </div>
   </div>
 </section>
-
-<!-- Wave: sand → sand-light -->
-<div class="wave-wrap" style="background:var(--sand-light);">
-  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 L1440,0 L1440,44 C1100,82 780,18 480,58 C280,84 120,38 0,66 Z" fill="#EDE0C8"/>
-  </svg>
-</div>
-
-<!-- ── GALLERY 1: STEDET ── -->
-<section class="gallery-section g1" aria-label="Stedet i Rørvig">
-  <div class="grain"></div>
-  <div class="gallery-inner">
-    <div class="gallery-header fade">
-      <p class="gallery-label">· Stedet ·</p>
-      <p class="gallery-subtext">Et varmt og uformelt hus ved skoven i Rørvig</p>
-    </div>
-    <div class="masonry">
-      <div class="masonry-item"><img src="images/stedet/Udend%C3%B8rs%20dag.png" alt="Udendørs dag" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Stue%209.png" alt="Stue" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Terase%20nord.png" alt="Terrasse nord" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/K%C3%B8kken.png" alt="Køkken" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Spiseplads.png" alt="Spiseplads" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Stue10.png" alt="Stue" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/UDEND%C3%98RS%20AFTEN.png" alt="Udendørs aften" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Anneks%201.png" alt="Anneks" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6relse%201.png" alt="Soveværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/K%C3%B8kken3.png" alt="Køkken" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Overd%C3%A6kker%20terase.png" alt="Overdækket terrasse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Anneks%202.png" alt="Anneks" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Badev%C3%A6relse%201.png" alt="Badeværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Udend%C3%B8r%20aften%202.png" alt="Udendørs aften" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/K%C3%B8kken4.png" alt="Køkken" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Spiseplads1.png" alt="Spiseplads" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6relse%201%201.png" alt="Soveværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/UDEND%C3%98RS%20ANNEKS%201.png" alt="Udendørs anneks" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Badev%C3%A6relse%202.png" alt="Badeværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Anneks%201%20%20kontorplads.png" alt="Anneks kontorplads" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Anneks%202%202.png" alt="Anneks" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Badev%C3%A6relse%203.png" alt="Badeværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/V%C3%A6relse%202.2.png" alt="Værelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6rele%201%202.png" alt="Soveværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/terasse.png" alt="Terrasse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/V%C3%A6relse%202.3.png" alt="Værelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/soveværelse%201.2.png" alt="Soveværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/V%C3%A6rele%202.png" alt="Værelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6relse%201.1...png" alt="Soveværelse" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stedet/ChatGPT%20Image%20May%2013%2C%202026%2C%2001_18_59%20PM.png" alt="Stedet" loading="lazy"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Wave: sand-light → cream -->
-<div class="wave-wrap" style="background:var(--cream);">
-  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 L1440,0 L1440,56 C1180,30 900,82 620,50 C380,22 160,70 0,44 Z" fill="#F5ECD8"/>
-  </svg>
-</div>
-
-<!-- ── GALLERY 2: STEMNINGER ── -->
-<section class="gallery-section g2" aria-label="Mad og stemninger">
-  <div class="grain"></div>
-  <div class="gallery-inner">
-    <div class="gallery-header fade">
-      <p class="gallery-label">· Mad &amp; stemninger ·</p>
-      <p class="gallery-subtext">Hjemmelavet og nærende — spist sammen</p>
-    </div>
-    <div class="masonry">
-      <div class="masonry-item"><img src="images/stemning/Retreat2.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat3.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat4.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat5.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat7.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat8.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat13.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat14.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat15.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat16.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat17.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat18.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat19.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat20.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/Retreat21.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/dclassic%202026-05-29%2019331569111CBC753D.jpg" alt="Retreat stemning" loading="lazy"></div>
-      <div class="masonry-item"><img src="images/stemning/dclassic%202026-05-29%20195106EF7A64D53E85.jpg" alt="Retreat stemning" loading="lazy"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Wave: cream → sand -->
-<div class="wave-wrap" style="background:var(--sand);">
-  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 L1440,0 L1440,40 C1200,80 960,20 720,56 C480,88 240,30 0,62 Z" fill="#FAF4E8"/>
-  </svg>
-</div>
 
 <!-- ── WEEKEND PROGRAM ── -->
 <section class="program-section" aria-label="Weekendprogram">
@@ -531,10 +437,76 @@
   </div>
 </section>
 
-<!-- Wave: sand → navy -->
+<!-- Wave: sand → sand-light -->
+<div class="wave-wrap" style="background:var(--sand-light);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,44 C1100,82 780,18 480,58 C280,84 120,38 0,66 Z" fill="#EDE0C8"/>
+  </svg>
+</div>
+
+<!-- ── GALLERY 1: STEDET ── -->
+<section class="gallery-section g1" aria-label="Stedet i Rørvig">
+  <div class="grain"></div>
+  <div class="gallery-inner">
+    <div class="gallery-header fade">
+      <p class="gallery-label">· Stedet ·</p>
+      <p class="gallery-subtext">Et varmt og uformelt hus ved skoven i Rørvig</p>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-grid-item"><img src="images/stedet/Stue%209.png" alt="Stue" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Terase%20nord.png" alt="Terrasse nord" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Stue10.png" alt="Stue" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/UDEND%C3%98RS%20AFTEN.png" alt="Udendørs aften" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Anneks%201.png" alt="Anneks" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Badev%C3%A6relse%201.png" alt="Badeværelse" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Udend%C3%B8r%20aften%202.png" alt="Udendørs aften" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Sovev%C3%A6relse%201%201.png" alt="Soveværelse" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Anneks%202%202.png" alt="Anneks" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/Badev%C3%A6relse%203.png" alt="Badeværelse" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stedet/V%C3%A6relse%202.2.png" alt="Værelse" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand-light → cream -->
+<div class="wave-wrap" style="background:var(--cream);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,56 C1180,30 900,82 620,50 C380,22 160,70 0,44 Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- ── GALLERY 2: STEMNINGER ── -->
+<section class="gallery-section g2" aria-label="Stemninger fra retreat">
+  <div class="grain"></div>
+  <div class="gallery-inner">
+    <div class="gallery-header fade">
+      <p class="gallery-label">· Stemninger ·</p>
+      <p class="gallery-subtext">Maden er hjemmelavet og nærende. Naturen er tæt på.</p>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-grid-item"><img src="images/stemning/Retreat2.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat3.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat5.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat7.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat8.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat14.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat15.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat16.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat17.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat18.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat19.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat20.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/Retreat21.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/dclassic%202026-05-29%2019331569111CBC753D.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="photo-grid-item"><img src="images/stemning/dclassic%202026-05-29%20195106EF7A64D53E85.jpg" alt="Retreat stemning" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: cream → navy -->
 <div class="wave-wrap" style="background:var(--navy);">
   <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 L1440,0 L1440,62 C1260,40 980,90 700,60 C420,32 200,80 0,50 Z" fill="#EDE0C8"/>
+    <path d="M0,0 L1440,0 L1440,62 C1260,40 980,90 700,60 C420,32 200,80 0,50 Z" fill="#FAF4E8"/>
   </svg>
 </div>
 
