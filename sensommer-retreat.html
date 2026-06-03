@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensommer-retreat i Rørvig — The Practice CPH</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap');
+
+    :root {
+      --sand:       #EDE0C8;
+      --sand-light: #F5ECD8;
+      --cream:      #FAF4E8;
+      --navy:       #1C2B3A;
+      --navy-mid:   #2A3E52;
+      --terracotta: #B85C38;
+      --amber:      #C97A55;
+      --dune:       #D4C4A0;
+      --ink:        #2C2318;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; font-weight: 300; background: var(--sand-light); color: var(--ink); overflow-x: hidden; }
+
+    .grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 192px 192px; mix-blend-mode: multiply;
+    }
+    .fade { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .wave-wrap { display: block; overflow: hidden; line-height: 0; margin-top: -2px; }
+    .wave-wrap svg { display: block; width: 100%; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 22px 56px; display: flex; align-items: center; justify-content: space-between; transition: background 0.35s ease, box-shadow 0.35s ease; }
+    nav.over-image .logo-the { color: var(--cream); opacity: 0.7; }
+    nav.over-image .logo-practice { color: var(--cream); }
+    nav.over-image .nav-links a { color: var(--cream); opacity: 0.65; }
+    nav.over-image .hamburger span { background: var(--cream); }
+    nav.scrolled { background: rgba(250,244,232,0.88); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(28,43,58,0.07); }
+    nav.scrolled .logo-the { color: var(--navy); opacity: 0.55; }
+    nav.scrolled .logo-practice { color: var(--terracotta); }
+    nav.scrolled .nav-links a { color: var(--navy); opacity: 0.6; }
+    nav.scrolled .hamburger span { background: var(--navy); }
+    .nav-logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1; }
+    .logo-the { font-size: 8.5px; font-weight: 300; letter-spacing: 0.45em; text-transform: uppercase; color: var(--navy); opacity: 0.55; }
+    .logo-practice { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--terracotta); letter-spacing: -0.02em; line-height: 1.05; }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a { font-size: 10px; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; color: var(--navy); text-decoration: none; opacity: 0.6; transition: opacity 0.2s ease, color 0.2s ease; }
+    .nav-links a:hover { opacity: 1; }
+    nav.over-image .nav-links a:hover { color: var(--sand); opacity: 1; }
+    nav.scrolled .nav-links a:hover { color: var(--terracotta); opacity: 1; }
+    .nav-links a.active { color: var(--terracotta); opacity: 1; }
+    nav.over-image .nav-links a.active { color: var(--sand); opacity: 1; }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5.5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--navy); border-radius: 2px; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.2s ease, background 0.2s ease; }
+    .hamburger.open span { background: var(--sand); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { position: fixed; top: 0; left: 0; right: 0; background: var(--navy); z-index: 199; padding: 96px 40px 48px; display: flex; flex-direction: column; transform: translateY(-110%); transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 8px 40px rgba(28,43,58,0.25); }
+    .mobile-menu.open { transform: translateY(0); }
+    .mobile-menu a { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sand); text-decoration: none; padding: 20px 0; border-bottom: 1px solid rgba(212,196,160,0.1); opacity: 0.7; transition: opacity 0.2s ease, color 0.2s ease; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { opacity: 1; color: var(--terracotta); }
+    @media (max-width: 768px) { .hamburger { display: flex; } .nav-links { display: none !important; } }
+
+    /* ── HERO ── */
+    .hero { min-height: 92vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: var(--navy); }
+    .hero-bg { position: absolute; inset: 0; background-image: url('images/stedet/Udend%C3%B8rs%20dag.png'); background-size: cover; background-position: center; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(28,43,58,0.68) 0%, rgba(28,43,58,0.38) 50%, rgba(28,43,58,0.78) 100%); z-index: 1; }
+    .hero-inner { position: relative; z-index: 2; text-align: center; padding: 140px 48px 80px; max-width: 860px; }
+    .hero-label { font-size: 10px; font-weight: 400; letter-spacing: 0.38em; text-transform: uppercase; color: var(--dune); margin-bottom: 32px; opacity: 0.9; }
+    .hero-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(58px, 8.5vw, 112px); line-height: 1.04; letter-spacing: -0.025em; color: var(--cream); margin-bottom: 24px; }
+    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(17px, 2vw, 23px); line-height: 1.55; letter-spacing: 0.005em; color: var(--dune); opacity: 0.82; margin-bottom: 40px; }
+    .hero-date-badge { display: inline-flex; align-items: center; gap: 12px; background: rgba(250,244,232,0.1); border: 1px solid rgba(250,244,232,0.22); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 11px 26px; border-radius: 100px; font-size: 10px; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dune); }
+
+    /* ── DESCRIPTION ── */
+    .desc-section { background: var(--sand-light); padding: 100px 56px; position: relative; overflow: hidden; }
+    .desc-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 88px; align-items: start; }
+    .desc-img-col { position: sticky; top: 120px; }
+    .desc-img { border-radius: 24px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 24px 64px rgba(28,43,58,0.12), 0 4px 16px rgba(28,43,58,0.06); }
+    .desc-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .desc-text-col { padding-top: 12px; }
+    .eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta); display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+    .eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(184,92,56,0.2); }
+    .section-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(32px, 3.5vw, 48px); line-height: 1.1; letter-spacing: -0.02em; color: var(--navy); margin-bottom: 36px; }
+    .body-text { font-size: 15px; font-weight: 300; line-height: 1.88; color: var(--ink); opacity: 0.72; margin-bottom: 20px; }
+
+    /* ── TAKEAWAYS ── */
+    .takeaway-section { background: var(--sand); padding: 96px 56px; position: relative; overflow: hidden; }
+    .takeaway-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta); text-align: center; margin-bottom: 16px; }
+    .takeaway-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(30px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em; color: var(--navy); text-align: center; margin-bottom: 64px; }
+    .takeaway-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .takeaway-card { background: var(--cream); border-radius: 20px; padding: 44px 36px; border: 1px solid rgba(184,92,56,0.08); box-shadow: 0 2px 12px rgba(28,43,58,0.04), 0 12px 32px rgba(28,43,58,0.04); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease; }
+    .takeaway-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(28,43,58,0.07), 0 20px 48px rgba(28,43,58,0.07); }
+    .takeaway-card-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 22px; color: var(--navy); margin-bottom: 14px; line-height: 1.25; }
+    .takeaway-line { width: 28px; height: 1px; background: var(--terracotta); margin-bottom: 16px; opacity: 0.6; }
+    .takeaway-card-desc { font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--ink); opacity: 0.65; }
+
+    /* ── GALLERY ── */
+    .gallery-section { padding: 96px 56px; position: relative; overflow: hidden; }
+    .gallery-section.g1 { background: var(--sand-light); }
+    .gallery-section.g2 { background: var(--cream); }
+    .gallery-inner { max-width: 1240px; margin: 0 auto; }
+    .gallery-header { text-align: center; margin-bottom: 56px; }
+    .gallery-label { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
+    .gallery-subtext { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); color: var(--navy); opacity: 0.55; letter-spacing: -0.01em; }
+    .masonry { column-count: 3; column-gap: 14px; }
+    .masonry-item { break-inside: avoid; margin-bottom: 14px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(28,43,58,0.06), 0 8px 24px rgba(28,43,58,0.04); }
+    .masonry-item img { width: 100%; display: block; filter: sepia(10%) brightness(0.97); transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), filter 0.35s ease; }
+    .masonry-item:hover img { transform: scale(1.03); filter: sepia(4%) brightness(1); }
+
+    /* ── PROGRAM ── */
+    .program-section { background: var(--sand); padding: 100px 56px; position: relative; overflow: hidden; }
+    .program-inner { max-width: 1200px; margin: 0 auto; }
+    .program-header { text-align: center; margin-bottom: 72px; }
+    .program-eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; }
+    .program-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(34px, 4vw, 52px); line-height: 1.1; letter-spacing: -0.02em; color: var(--navy); }
+    .program-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: start; }
+    .program-day-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(26px, 2.8vw, 36px); color: var(--navy); letter-spacing: -0.02em; margin-bottom: 32px; padding-bottom: 18px; border-bottom: 1.5px solid rgba(184,92,56,0.22); }
+    .program-item { padding: 16px 0; border-bottom: 1px solid rgba(184,92,56,0.1); }
+    .program-item:last-child { border-bottom: none; }
+    .program-time { font-variant: small-caps; font-size: 10.5px; letter-spacing: 0.12em; color: var(--terracotta); margin-bottom: 5px; }
+    .program-activity { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 17px; color: var(--navy); line-height: 1.3; margin-bottom: 5px; }
+    .program-desc { font-size: 12.5px; font-weight: 300; line-height: 1.72; color: var(--ink); opacity: 0.56; }
+
+    /* ── PRACTICAL ── */
+    .practical-section { background: var(--navy); padding: 100px 56px; position: relative; overflow: hidden; }
+    .practical-inner { max-width: 960px; margin: 0 auto; position: relative; }
+    .practical-eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+    .practical-eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(212,196,160,0.15); }
+    .practical-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(34px, 4vw, 52px); line-height: 1.1; letter-spacing: -0.02em; color: var(--sand); margin-bottom: 60px; }
+    .practical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 64px; }
+    .practical-item { padding: 28px 32px; border-radius: 16px; background: rgba(212,196,160,0.05); border: 1px solid rgba(212,196,160,0.1); }
+    .practical-item-label { font-size: 9.5px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin-bottom: 9px; opacity: 0.8; }
+    .practical-item-value { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--dune); opacity: 0.85; }
+    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .price-card { border-radius: 20px; padding: 44px 40px; background: rgba(212,196,160,0.07); border: 1px solid rgba(212,196,160,0.16); transition: border-color 0.3s ease, background 0.3s ease; }
+    .price-card:hover { border-color: rgba(212,196,160,0.28); background: rgba(212,196,160,0.12); }
+    .price-card-type { font-size: 10px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); margin-bottom: 18px; opacity: 0.8; }
+    .price-card-amount { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(38px, 4.5vw, 56px); color: var(--cream); letter-spacing: -0.02em; line-height: 1; }
+    .price-note { font-size: 12px; font-weight: 300; letter-spacing: 0.04em; color: var(--dune); opacity: 0.4; text-align: center; margin-top: 4px; }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--terracotta); padding: 100px 56px; position: relative; overflow: hidden; text-align: center; }
+    .cta-radial { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 55% at 80% 20%, rgba(255,215,170,0.15) 0%, transparent 58%); }
+    .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+    .cta-headline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(38px, 5vw, 64px); line-height: 1.1; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 24px; }
+    .cta-text { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(250,244,232,0.75); margin-bottom: 44px; }
+    .btn-cream { display: inline-block; font-size: 10.5px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); background: var(--cream); padding: 16px 42px; border-radius: 100px; border: none; cursor: pointer; text-decoration: none; transition: background 0.25s ease, transform 0.2s ease; }
+    .btn-cream:hover { background: var(--sand); transform: translateY(-2px); }
+    .btn-cream:active { transform: translateY(0); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 64px 56px 40px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 48px; border-bottom: 1px solid rgba(212,196,160,0.1); flex-wrap: wrap; gap: 36px; }
+    .footer-logo .logo-the { opacity: 0.4; color: var(--dune); }
+    .footer-logo .logo-practice { color: var(--terracotta); }
+    .footer-links { display: flex; gap: 32px; list-style: none; flex-wrap: wrap; align-self: center; }
+    .footer-links a { font-size: 10px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); text-decoration: none; opacity: 0.45; transition: opacity 0.2s ease; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 11px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.38; line-height: 2.1; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; color: var(--dune); opacity: 0.28; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 28px; }
+      .hero-inner { padding: 120px 28px 72px; }
+      .desc-section, .takeaway-section, .gallery-section, .program-section, .practical-section, .cta-section { padding: 80px 28px; }
+      .desc-inner { grid-template-columns: 1fr; gap: 48px; }
+      .desc-img-col { position: static; }
+      .desc-img { aspect-ratio: 4/3; max-height: 420px; }
+      .takeaway-grid { grid-template-columns: 1fr; gap: 20px; }
+      .masonry { column-count: 2; }
+      .program-grid { grid-template-columns: 1fr; gap: 48px; }
+      .practical-grid { grid-template-columns: 1fr; }
+      .price-grid { grid-template-columns: 1fr; }
+      footer { padding: 52px 28px 36px; }
+      .footer-contact { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero-inner { padding: 110px 20px 64px; }
+      .masonry { column-count: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="over-image">
+  <a href="index.html" class="nav-logo" aria-label="The Practice CPH">
+    <span class="logo-the">The</span>
+    <span class="logo-practice">Practice</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="events.html">Events</a></li>
+    <li><a href="retreats.html" class="active">Retreats</a></li>
+    <li><a href="private.html">Privat</a></li>
+    <li><a href="members.html">Online</a></li>
+    <li><a href="about.html">Om The Practice</a></li>
+    <li><a href="contact.html">Kontakt</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Åbn menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobilmenu">
+  <a href="events.html">Events</a>
+  <a href="retreats.html">Retreats</a>
+  <a href="private.html">Privat</a>
+  <a href="members.html">Online</a>
+  <a href="about.html">Om The Practice</a>
+  <a href="contact.html">Kontakt</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-label="Sensommer-retreat i Rørvig">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="grain" style="opacity:0.03; z-index:2;"></div>
+  <div class="hero-inner">
+    <p class="hero-label fade">· Sensommer-retreat ·</p>
+    <h1 class="hero-headline fade">Kom hjem i kroppen</h1>
+    <p class="hero-sub fade">En weekend med Kundalini Yoga, meditation, natur og nærvær — i Rørvig ved skoven og havet.</p>
+    <div class="fade" style="display:flex; justify-content:center; margin-top:12px;">
+      <span class="hero-date-badge">28.–30. august 2026 · Rørvig</span>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: navy → sand-light -->
+<div class="wave-wrap" style="background:var(--sand-light);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,40 C1200,80 960,20 720,56 C480,88 240,30 0,62 Z" fill="#1C2B3A"/>
+  </svg>
+</div>
+
+<!-- ── DESCRIPTION SECTION ── -->
+<section class="desc-section" aria-label="Om retreatet">
+  <div class="grain"></div>
+  <div class="desc-inner">
+    <div class="desc-img-col fade">
+      <div class="desc-img">
+        <img src="images/stedet/Anneks%201.png" alt="Retreat stedet i Rørvig" loading="lazy">
+      </div>
+    </div>
+    <div class="desc-text-col">
+      <p class="eyebrow fade">Rørvig, Danmark</p>
+      <h2 class="section-headline fade">En weekend der giver dig redskaber til livet</h2>
+      <p class="body-text fade">Lær at forstå kroppens signaler og dit unikke nervesystem.</p>
+      <p class="body-text fade">Gennem Kundalini Yoga, meditation, kropslige øvelser, natur, refleksion og fællesskab udforsker vi, hvordan kroppen kommunikerer med os — gennem energi, spændinger, uro, intuition, træthed og velvære. Ofte længe inden stress, udmattelse eller overbelastning opstår.</p>
+      <p class="body-text fade">Du lærer at mærke dig selv tydeligere, forstå dine reaktionsmønstre og skabe mere balance i hverdagen gennem enkle praksisser, du kan tage med hjem og integrere i dit liv.</p>
+      <p class="body-text fade">Kroppen kommunikerer med os hele tiden. På dette retreat lærer vi at lytte.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand-light → sand -->
+<div class="wave-wrap" style="background:var(--sand);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,62 C1260,40 980,90 700,60 C420,32 200,80 0,50 Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- ── WHAT YOU TAKE HOME ── -->
+<section class="takeaway-section" aria-label="Hvad du tager med hjem">
+  <div class="grain"></div>
+  <div class="takeaway-inner">
+    <p class="section-label fade">Hvad tager du med hjem</p>
+    <div class="takeaway-grid">
+      <article class="takeaway-card fade">
+        <h3 class="takeaway-card-title">Dybere kropslig kontakt</h3>
+        <div class="takeaway-line"></div>
+        <p class="takeaway-card-desc">En dybere forbindelse til din krop og dens signaler</p>
+      </article>
+      <article class="takeaway-card fade">
+        <h3 class="takeaway-card-title">Forstå dit nervesystem</h3>
+        <div class="takeaway-line"></div>
+        <p class="takeaway-card-desc">Konkret viden om dit unikke nervesystem og dine reaktionsmønstre</p>
+      </article>
+      <article class="takeaway-card fade">
+        <h3 class="takeaway-card-title">Redskaber til hverdagen</h3>
+        <div class="takeaway-line"></div>
+        <p class="takeaway-card-desc">Simple praksisser du kan integrere i dit liv og tage med hjem</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand → sand-light -->
+<div class="wave-wrap" style="background:var(--sand-light);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,44 C1100,82 780,18 480,58 C280,84 120,38 0,66 Z" fill="#EDE0C8"/>
+  </svg>
+</div>
+
+<!-- ── GALLERY 1: STEDET ── -->
+<section class="gallery-section g1" aria-label="Stedet i Rørvig">
+  <div class="grain"></div>
+  <div class="gallery-inner">
+    <div class="gallery-header fade">
+      <p class="gallery-label">· Stedet ·</p>
+      <p class="gallery-subtext">Et varmt og uformelt hus ved skoven i Rørvig</p>
+    </div>
+    <div class="masonry">
+      <div class="masonry-item"><img src="images/stedet/Udend%C3%B8rs%20dag.png" alt="Udendørs dag" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Stue%209.png" alt="Stue" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Terase%20nord.png" alt="Terrasse nord" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/K%C3%B8kken.png" alt="Køkken" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Spiseplads.png" alt="Spiseplads" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Stue10.png" alt="Stue" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/UDEND%C3%98RS%20AFTEN.png" alt="Udendørs aften" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Anneks%201.png" alt="Anneks" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6relse%201.png" alt="Soveværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/K%C3%B8kken3.png" alt="Køkken" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Overd%C3%A6kker%20terase.png" alt="Overdækket terrasse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Anneks%202.png" alt="Anneks" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Badev%C3%A6relse%201.png" alt="Badeværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Udend%C3%B8r%20aften%202.png" alt="Udendørs aften" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/K%C3%B8kken4.png" alt="Køkken" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Spiseplads1.png" alt="Spiseplads" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6relse%201%201.png" alt="Soveværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/UDEND%C3%98RS%20ANNEKS%201.png" alt="Udendørs anneks" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Badev%C3%A6relse%202.png" alt="Badeværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Anneks%201%20%20kontorplads.png" alt="Anneks kontorplads" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Anneks%202%202.png" alt="Anneks" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Badev%C3%A6relse%203.png" alt="Badeværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/V%C3%A6relse%202.2.png" alt="Værelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6rele%201%202.png" alt="Soveværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/terasse.png" alt="Terrasse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/V%C3%A6relse%202.3.png" alt="Værelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/soveværelse%201.2.png" alt="Soveværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/V%C3%A6rele%202.png" alt="Værelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/Sovev%C3%A6relse%201.1...png" alt="Soveværelse" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stedet/ChatGPT%20Image%20May%2013%2C%202026%2C%2001_18_59%20PM.png" alt="Stedet" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand-light → cream -->
+<div class="wave-wrap" style="background:var(--cream);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,56 C1180,30 900,82 620,50 C380,22 160,70 0,44 Z" fill="#F5ECD8"/>
+  </svg>
+</div>
+
+<!-- ── GALLERY 2: STEMNINGER ── -->
+<section class="gallery-section g2" aria-label="Mad og stemninger">
+  <div class="grain"></div>
+  <div class="gallery-inner">
+    <div class="gallery-header fade">
+      <p class="gallery-label">· Mad &amp; stemninger ·</p>
+      <p class="gallery-subtext">Hjemmelavet og nærende — spist sammen</p>
+    </div>
+    <div class="masonry">
+      <div class="masonry-item"><img src="images/stemning/Retreat2.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat3.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat4.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat5.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat7.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat8.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat13.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat14.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat15.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat16.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat17.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat18.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat19.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat20.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/Retreat21.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/dclassic%202026-05-29%2019331569111CBC753D.jpg" alt="Retreat stemning" loading="lazy"></div>
+      <div class="masonry-item"><img src="images/stemning/dclassic%202026-05-29%20195106EF7A64D53E85.jpg" alt="Retreat stemning" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: cream → sand -->
+<div class="wave-wrap" style="background:var(--sand);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,40 C1200,80 960,20 720,56 C480,88 240,30 0,62 Z" fill="#FAF4E8"/>
+  </svg>
+</div>
+
+<!-- ── WEEKEND PROGRAM ── -->
+<section class="program-section" aria-label="Weekendprogram">
+  <div class="grain"></div>
+  <div class="program-inner">
+    <div class="program-header fade">
+      <p class="program-eyebrow">Weekendprogram</p>
+      <h2 class="program-headline">28.–30. august 2026</h2>
+    </div>
+    <div class="program-grid">
+
+      <!-- FREDAG -->
+      <div class="program-day fade">
+        <h3 class="program-day-title">Fredag</h3>
+
+        <div class="program-item">
+          <p class="program-time">16.00–17.00</p>
+          <p class="program-activity">Ankomst og indkvartering</p>
+          <p class="program-desc">Tid til at lande, finde sig til rette og nyde en kop te.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">18.00</p>
+          <p class="program-activity">Økologisk fællesmiddag</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">19.30–21.00</p>
+          <p class="program-activity">Blid Kundalini Yoga &amp; Meditation</p>
+          <p class="program-desc">En rolig aftenpraksis der hjælper kroppen med at slippe ugens tempo og lande i nærvær.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">21.00</p>
+          <p class="program-activity">Te og hyggeligt samvær</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">22.00</p>
+          <p class="program-activity">Godnat</p>
+        </div>
+      </div>
+
+      <!-- LØRDAG -->
+      <div class="program-day fade">
+        <h3 class="program-day-title">Lørdag</h3>
+
+        <div class="program-item">
+          <p class="program-time">07.00–09.00</p>
+          <p class="program-activity">Morgenpraksis</p>
+          <p class="program-desc">Kundalini Yoga, åndedrætsøvelser og meditation. Tema: At mærke kroppen indefra.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">09.00</p>
+          <p class="program-activity">Nærende økologisk morgenmad</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">10.30–12.00</p>
+          <p class="program-activity">Workshop: Kroppen og dit unikke nervesystem</p>
+          <p class="program-desc">En jordnær introduktion til nervesystemet og kroppens signaler — hvordan kroppen kommunikerer, hvordan nervesystemer reagerer forskelligt, stress- og tryghedssignaler og hvordan vi lytter til kroppen i hverdagen.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">12.30</p>
+          <p class="program-activity">Frokost</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">14.00–16.00</p>
+          <p class="program-activity">Meditativ vandring og havbad</p>
+          <p class="program-desc">Vi bevæger os gennem naturen i stilhed med guidede refleksioner undervejs. Mulighed for badning i havet.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">16.00</p>
+          <p class="program-activity">Eftermiddagste og snack</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">16.30–18.00</p>
+          <p class="program-activity">Kropslig bevidsthed &amp; somatiske praksisser</p>
+          <p class="program-desc">Enkle øvelser der hjælper dig med at registrere spændinger, ressourcer, grænser og signaler fra kroppen.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">18.30</p>
+          <p class="program-activity">Økologisk aftensmad</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">20.30</p>
+          <p class="program-activity">Bål og guidet meditation</p>
+          <p class="program-desc">En stille aften omkring bålet med refleksion, nærvær og integration.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">22.00</p>
+          <p class="program-activity">Godnat</p>
+        </div>
+      </div>
+
+      <!-- SØNDAG -->
+      <div class="program-day fade">
+        <h3 class="program-day-title">Søndag</h3>
+
+        <div class="program-item">
+          <p class="program-time">07.00–09.00</p>
+          <p class="program-activity">Morgenpraksis</p>
+          <p class="program-desc">Kundalini Yoga, åndedræt og meditation. Tema: At tage kroppens visdom med hjem.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">09.00</p>
+          <p class="program-activity">Morgenmad</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">10.30–12.00</p>
+          <p class="program-activity">Refleksionsworkshop: Dit unikke nervesystem</p>
+          <p class="program-desc">Vi samler weekendens erfaringer — hvordan kommunikerer min krop med mig, hvilke signaler har jeg lært at genkende, hvad bringer mig tilbage til balance, og hvilke praksisser ønsker jeg at tage med hjem. Du går hjem med din egen personlige værktøjskasse.</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">12.30</p>
+          <p class="program-activity">Frokost</p>
+        </div>
+
+        <div class="program-item">
+          <p class="program-time">13.30–15.00</p>
+          <p class="program-activity">Fri tid, afslutning og afrejse</p>
+          <p class="program-desc">Tid til en sidste kop te, en gåtur eller en stille stund inden vi siger farvel. Afrejse senest kl. 15.00.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Wave: sand → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,62 C1260,40 980,90 700,60 C420,32 200,80 0,50 Z" fill="#EDE0C8"/>
+  </svg>
+</div>
+
+<!-- ── PRACTICAL INFO + PRICE ── -->
+<section class="practical-section" aria-label="Praktisk information">
+  <div class="grain" style="opacity:0.025;"></div>
+  <div class="practical-inner">
+    <p class="practical-eyebrow fade">Information</p>
+    <h2 class="practical-headline fade">Praktisk information</h2>
+
+    <div class="practical-grid">
+      <div class="practical-item fade">
+        <p class="practical-item-label">Dato</p>
+        <p class="practical-item-value">Fredag 28. – søndag 30. august 2026</p>
+      </div>
+      <div class="practical-item fade">
+        <p class="practical-item-label">Sted</p>
+        <p class="practical-item-value">Rørvig, nær skov og hav</p>
+      </div>
+      <div class="practical-item fade">
+        <p class="practical-item-label">Indhold</p>
+        <p class="practical-item-value">Kundalini Yoga, meditation, natur, nærvær, hjemmelavet mad, bål og fællesskab</p>
+      </div>
+      <div class="practical-item fade">
+        <p class="practical-item-label">Medbring</p>
+        <p class="practical-item-value">Komfortabelt tøj, åbent sind og dig selv</p>
+      </div>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card fade">
+        <p class="price-card-type">Delt værelse</p>
+        <p class="price-card-amount">3.995 kr.</p>
+      </div>
+      <div class="price-card fade">
+        <p class="price-card-type">Enkeltværelse</p>
+        <p class="price-card-amount">4.795 kr.</p>
+      </div>
+    </div>
+    <p class="price-note fade">Prisen inkluderer overnatning, alle måltider og undervisning.</p>
+  </div>
+</section>
+
+<!-- Wave: navy → terracotta -->
+<div class="wave-wrap" style="background:var(--terracotta);">
+  <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,44 C1100,82 780,18 480,58 C280,84 120,38 0,66 Z" fill="#1C2B3A"/>
+  </svg>
+</div>
+
+<!-- ── CTA ── -->
+<section class="cta-section" aria-label="Tilmeld venteliste">
+  <div class="cta-radial"></div>
+  <div class="grain" style="opacity:0.035;"></div>
+  <div class="cta-inner">
+    <h2 class="cta-headline fade">Klar til at komme hjem i kroppen?</h2>
+    <p class="cta-text fade">Tilmeld dig ventelisten — vi glæder os til at byde dig velkommen.</p>
+    <button class="btn-cream fade"
+      data-tally-open="xXvMlv" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+      Tilmeld venteliste →
+    </button>
+  </div>
+</section>
+
+<!-- Wave: terracotta → navy -->
+<div class="wave-wrap" style="background:var(--navy);">
+  <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,52 C1100,22 760,68 440,38 C220,18 80,52 0,36 Z" fill="#B85C38"/>
+  </svg>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="nav-logo footer-logo" aria-label="The Practice CPH">
+        <span class="logo-the">The</span>
+        <span class="logo-practice">Practice</span>
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="events.html">Events</a></li>
+        <li><a href="retreats.html">Retreats</a></li>
+        <li><a href="private.html">Privat</a></li>
+        <li><a href="members.html">Online</a></li>
+        <li><a href="about.html">Om The Practice</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+        <li><a href="https://www.instagram.com/thepracticecph" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      </ul>
+      <div class="footer-contact">
+        <p>thepracticecph</p>
+        <p>kia@thepracticecph.dk</p>
+        <p>+45 53 64 64 59</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Practice CPH</p>
+      <p>Frederikssundsvej 62, 2400 København NV</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  const nav = document.getElementById('nav');
+  let heroBottom = 0;
+  function getHeroBottom() {
+    const hero = document.querySelector('.hero');
+    if (hero) heroBottom = hero.offsetTop + hero.offsetHeight - 80;
+  }
+  getHeroBottom();
+  window.addEventListener('resize', getHeroBottom, { passive: true });
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 36;
+        const pastHero = window.scrollY > heroBottom;
+        nav.classList.toggle('scrolled', scrolled);
+        nav.classList.toggle('over-image', !scrolled);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+  document.querySelectorAll('.hero .fade').forEach((el, i) => { setTimeout(() => el.classList.add('in'), 180 + i * 130); });
+</script>
+<script src="https://tally.so/widgets/embed.js"></script>
+</body>
+</html>
